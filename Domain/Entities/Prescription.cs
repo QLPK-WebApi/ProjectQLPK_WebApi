@@ -5,13 +5,11 @@ namespace App_QLPK.Domain.Entities;
 /// <summary>
 /// Đơn thuốc
 /// </summary> 
-public class Prescription
+public class Prescription : BaseEntity
 {
-    public int Id { get; set; }
     public int MedicalRecordId { get; set; }
     public int DoctorId { get; set; }
 
-    public DateTime CreatedAt { get; set; }
     public string? Notes { get; set; }
     public PrescriptionStatus Status { get; set; } = PrescriptionStatus.Draft; // mặc định là đang tạo
 

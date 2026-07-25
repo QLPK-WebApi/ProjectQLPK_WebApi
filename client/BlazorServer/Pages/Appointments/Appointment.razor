@@ -1,0 +1,200 @@
+@using BlazorServer.Models
+@using BlazorServer.Services
+
+@page "/appointments"
+
+@attribute [Authorize]
+@inject AppointmentApiClient Api
+
+
+<PageTitle>Lịch hẹn - QLPK</PageTitle>
+
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <h1 class="h3 mb-0 fs-1">Quản lý lịch hẹn</h1>
+    <button class="btn btn-primary" @onclick ="OpenCreate">
+        + Tạo lịch hẹn
+    </button>
+</div>
+
+
+<div class="input-group mb-3" style="max-width:400px;">
+    <input class="form-control" placeholder="Tìm theo bệnh nhân / bác sĩ / lý do..." @bind="_keyword"
+            @bind:event="oninput" @onkeyup="OnSearchKey" />
+
+    <button class="btn btn-outline-secondary" @onclick="() => LoadAsync(1)">Tìm</button>
+</div>
+
+
+@if (!string.IsNullOrEmpty(_error))
+{
+    <div class="alert alert-danger">@_error</div>
+}
+
+@if (_loading)
+{
+    <p>Đang tải...</p>
+}
+
+else if (_result is null || _result.Items.Count == 0)
+{
+    <div class="alert alert-info">Không có lịch hẹn nào</div>
+}
+
+else
+{
+    <table class="table table-hover align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>#</th>
+                <th>Thời gian</th>
+                <th>Bệnh nhân</th>
+                <th>Bác sĩ</th>
+                <th>Lý do</th>
+                <th>Trạng thái</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var a in _result.Items)
+            {
+                <tr>
+                    <td>@a.Id</td>
+                    <td>@a.AppointmentTime.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>@a.PatientName</td>
+                    <td>@a.DoctorName</td>
+                    <td>@a.Reason</td>
+                    <td>
+                        <span class="badge @StatusClass(a.Status)">@StatusText(a.Status)</span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @* <nav class="d-flex justify-content-between align-items-center">
+        <span class="text-muted small">
+            Tổng: @_result.TotalCount lịch hẹn
+        </span>
+
+        <div class="btn-group">
+            <button class="btn btn-outline-secondary btn-sm" disabled="@(!_result.HasPrevious)"
+                    @onclick="() => LoadAsync(_result.PageIndex - 1)"> ← Trước
+            </button>
+
+            <span class="btn btn-light btn-sm disabled">
+                @_result.PageIndex / @Math.Max(_result.TotalPages, 1)
+            </span>
+
+            <button class="btn btn-outline-secondary btn-sm" disabled="@(!_result.HasNext)"
+                    @onclick="() => LoadAsync(_result.PageIndex + 1)"> Sau →
+
+            </button>
+        </div>
+    </nav> *@
+}
+
+
+@if (_showCreate)
+{
+    <AppointmentCreateDialog OnSaved ="OnCreated" OnCancel ="() => _showCreate = false" />
+}
+
+
+@code {
+    private PagedResult<AppointmentModel>? _result;
+
+    private string? _keyword;
+    private string? _error;
+    private bool _loading;
+    private bool _showCreate;
+
+    protected override Task OnInitializedAsync()
+        => LoadAsync(1); // auto-run on page load (tự chạy khi mở trang , mặc định là trang 1)
+
+    private async Task LoadAsync(int pageIndex)
+    {
+        _loading = true;
+        _error = null;
+
+        try
+        {
+            _result = await Api.GetPagedAsync(pageIndex, 10, _keyword);
+        }
+        catch (ApiException ex) { _error = ex.Message; }
+
+        catch { _error = "Không kết nối được tới Api."; }
+
+        finally { _loading = false; }
+    }
+
+    private async Task OnSearchKey(KeyboardEventArgs e)
+    { // khi user gõ Enter
+        if (e.Key == "Enter")
+            await LoadAsync(1);
+    }
+
+    private static string StatusClass(string s) => s switch // màu hiển thị
+    {
+        "Scheduled" => "bg-secondary",
+        "CheckedIn" => "bg-info text-dark",
+        "Completed" => "bg-success",
+        "Cancelled" => "bg-danger",
+        _ => "bg-light text-dark"
+    };
+
+    private static string StatusText(string s) => s switch // chữ hiển thị
+    {
+        "Scheduled" => "Đã đặt",
+        "CheckedIn" => "Đã đến",
+        "Completed" => "Hoàn tất",
+        "Cancelled" => "Đã hủy",
+        _ => s
+    };
+
+
+    private void OpenCreate() => _showCreate = true;
+    private async Task OnCreated()
+    {
+        _showCreate = false;
+        await LoadAsync(1);
+    }
+}
+
+
+
+
+
+
+
+
+
+        
+    
+
+@* @code{
+    private async Task ChangeStatus(AppointmentModel a, string status)
+    {
+        try
+        {
+            await Api.ChangeStatusAsync(a.Id, status, null);
+            await LoadAsync(_result!.PageIndex);
+        }
+        catch (ApiException ex)
+        {
+            _error = ex.Message;
+        }
+    }
+
+    private async Task CancelAsync(AppointmentModel a)
+    {
+        try
+        {
+            await Api.ChangeStatusAsync(a.Id, "Cancelled", "Hủy bởi người dùng");
+        }
+        catch (ApiException ex)
+        {
+            _error = ex.Message;
+        }
+    }
+
+}     *@

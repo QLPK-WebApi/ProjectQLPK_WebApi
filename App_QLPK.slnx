@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/client/">
+    <Project Path="client/BlazorServer/BlazorServer.csproj" />
+  </Folder>
   <Project Path="Application/Application.csproj" />
   <Project Path="Domain/Domain.csproj" />
   <Project Path="Infrastructure/Infrastructure.csproj" />

@@ -1,8 +1,7 @@
 namespace App_QLPK.Domain.Entities;
 
-public class User
+public class User : BaseEntity
 {
-    public  int Id { get; set;}
     public string Username { get; set;} = null!;
     public string FullName { get; set; } = null!;
 
@@ -19,8 +18,7 @@ public class User
     // đã bị xóa hay chưa? ( không xóa thật trong Database )
 
     public DateTime? LastLoginAt { get; set; } //  đăng nhập gần nhất
-    public DateTime CreatedAt { get; set; }
-    public DateTime? UpdatedAt { get; set; }
+    
 
     public string? AdditionalData { get; set; }
     

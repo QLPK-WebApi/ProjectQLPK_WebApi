@@ -1,0 +1,95 @@
+@using BlazorServer.Models
+@using BlazorServer.Services
+@inject AppointmentApiClient Api
+
+
+
+<div class="modal fade show d-block" tabindex="-1" style="background:rgba(0,0,0,.5);">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <EditForm Model="_model" OnValidSubmit="SaveAsync">
+                <DataAnnotationsValidator />
+
+                <div class="modal-header alert alert-success" >
+                    <h1 class="modal-title ">Tạo lịch hẹn</h1>
+                    <button type="button" class="btn-close" @onclick="OnCancel"></button>
+                </div>
+
+                <div class="modal-body" style="font-weight: bold;">
+                    @if (!string.IsNullOrEmpty(_error))
+                    {
+                        <div class="alert alert-danger py-2">@_error</div>
+                    }
+
+                    <div class="mb-3">
+                        <label class="form-label">Mã bệnh nhân(PatientId)</label>
+                        <InputNumber class="form-control" @bind-Value="_model.PatientId" />
+                        <ValidationMessage For="() => _model.PatientId" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Mã bác sĩ(DoctorId)</label>
+                        <InputNumber class="form-control" @bind-Value="_model.DoctorId" />
+                        <ValidationMessage For="() => _model.DoctorId" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Thời gian hẹn</label>
+                        <InputDate Type="InputDateType.DateTimeLocal" class="form-control"
+                                @bind-Value="_model.AppointmentTime" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Ghi chú</label>
+                        <InputTextArea class="form-control" @bind-Value="_model.Notes" rows="2" />
+                    </div>
+                </div>
+
+
+                <div class="d-flex justify-content-center my-3">
+                    <button type ="button" class ="btn btn-secondary mx-2" @onclick ="OnCancel">Đóng</button>
+                    
+                    <button type="submit" class="btn btn-primary mx-2" disabled="@_saving">@(_saving ? "Đang lưu..." : "Lưu")</button>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
+
+
+
+
+@code {
+    private readonly CreateAppointmentModel _model = new();
+
+    [Parameter] public EventCallback OnSaved { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+
+    private string? _error;
+    private bool _saving;
+    private async Task SaveAsync()
+    {
+        _error = null;
+        _saving = true;
+
+        try
+        {
+            await Api.CreateAsync(_model);
+            await OnSaved.InvokeAsync();
+        }
+        catch (ApiException ex) { _error = ex.Message; }
+
+        catch { _error = "Không kết nối được tới API."; }
+        finally { _saving = false; }
+    }
+}
+
+
+
+
+
+
+
+
+
+

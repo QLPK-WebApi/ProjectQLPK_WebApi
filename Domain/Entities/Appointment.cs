@@ -5,9 +5,8 @@ namespace App_QLPK.Domain.Entities;
 /// <summary>
 /// Lịch hẹn khám
 /// </summary>
-public class Appointment
+public class Appointment : BaseEntity
 {
-    public int Id { get; set; }
     public int PatientId { get; set; }
     public int DoctorId { get; set; }
 
@@ -22,10 +21,6 @@ public class Appointment
     public string? CancelReason { get; set; }
 
 
-    public DateTime CreatedAt { get; set; }
-    public DateTime? UpdateAt { get; set; }
-
-    
     public Patient Patient { get; set; } = null!;
     public Doctor Doctor { get; set; } = null!;
     public MedicalRecord? MedicalRecord { get; set; } // 1 lịch hẹn thì chưa có MedicaRecord

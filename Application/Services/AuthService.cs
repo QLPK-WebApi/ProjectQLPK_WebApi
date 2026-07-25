@@ -32,17 +32,16 @@ public async Task<LoginResponse> LoginAsync(LoginRequest request, CancellationTo
             throw new AppException("Tài khoản không tồn tại hoặc đã bị khóa.");
         }
 
-        if(! _hasher.Verify(request.Password, user.PasswordHash))
+        if(!_hasher.Verify(request.Password, user.PasswordHash))
         {
             throw new AppException("Sai tên đăng nhập hoặc mật khẩu.");
         }
-            
-        
+
 
         var (token, expiresAt) = _jwt.GenerateToken(user);
         
         user.LastLoginAt = DateTime.UtcNow;
-        await _userRepo.UpdateAsync(user, ct);
+        await _userRepo.UpdateAsync(user, ct); // lưu vào DB
 
         return new LoginResponse
         {

@@ -1,0 +1,24 @@
+@using Microsoft.AspNetCore.Components.Authorization
+
+@* chịu trách nhiệm đọc URL và chọn đúng trang hiển thị *@
+
+
+<Router AppAssembly="@typeof(Program).Assembly">
+    <Found Context="routeData">
+        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
+            <NotAuthorized>
+                <RedirectToLogin />
+            </NotAuthorized>
+
+            <Authorizing>
+                <p class="p-3">Đang kiểm tra đăng nhập...</p>
+            </Authorizing>
+        </AuthorizeRouteView>
+        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+    </Found>
+
+    <NotFound>
+        <p class="p-3">Không tìm thấy trang</p>
+    </NotFound>
+
+</Router>

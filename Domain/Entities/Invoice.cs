@@ -3,9 +3,8 @@ using App_QLPK.Domain.Enums;
 namespace App_QLPK.Domain.Entities;
 
 
-public class Invoice
+public class Invoice : BaseEntity
 {
-    public int Id { get; set;}
     public int PatientId { get; set;} 
     public int  AppointmentId { get; set;} // lịch khám khi nào, lịch tái khám
 

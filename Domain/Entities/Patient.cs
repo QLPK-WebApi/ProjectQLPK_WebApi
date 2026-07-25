@@ -1,8 +1,7 @@
 namespace App_QLPK.Domain.Entities;
 
-public class Patient
+public class Patient : BaseEntity
 {
-    public int Id { get; set; }
     public int UserId { get; set; }
     public DateTime DateOfBirth { get; set; }
     public string? Gender { get; set; }
@@ -10,9 +9,6 @@ public class Patient
     public string? EmergencyName { get; set; } // tên người thân
     public string? EmergencyPhone { get; set; } // số điện thoại khẩn cho người thân
     public string? InsuranceNumber { get; set; }  // số BHYT
-    public DateTime CreatedAt { get; set; }
-    public DateTime? UpdatedAt { get; set; }
-
 
 
     public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();

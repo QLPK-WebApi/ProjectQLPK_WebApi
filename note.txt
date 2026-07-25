@@ -1,4 +1,4 @@
- # Application      : ref Dommain, 
+ # Application      : ref Dommain, (không using Infrastructure, chỉ làm việc qua Interfaces)
  # Domain           : không ref ai, chỉ chứa Entities + Enum
  # Infrastructure   : ref Application + Domain, EF Core, BCrypt
  # WebApi           : ref Application, EF Core, JwtBearer, Swagger, (chỉ using Infrastructure trong Program)
@@ -21,11 +21,15 @@
 
 
             ------##### BƯỚC 2 #####------
+
 - Tạo IUserRepository để hiển thị các Task
     -> layer Application/Interfaces/Repositories/IUserRepository.cs
 
-- Thực thi IUserRepository
-    -> layer Infrastructure/Repositories/UserRepository.class
+- Tạo RepoBase<T> : IRepo<T>
+    -> layer Infrastructure/Repositories/RepoBase.cs
+
+- Tạo UserRepo : RepoBase<User>,IUserRepo
+    -> layer Infrastructure/Repositories/UserRepo.cs
 
 - Tạo JwtTokenService (Generate Token)
     -> layer Infrastructure/Security/JwtTokenService.cs
@@ -34,7 +38,6 @@
 - Tạo AuthService (login , gọi JwtTokenService)
     -> layer Application/Services/AuthService.cs
 
-- DI tất cả vào Program.cs
 
 
             ------##### BƯỚC 3 #####------

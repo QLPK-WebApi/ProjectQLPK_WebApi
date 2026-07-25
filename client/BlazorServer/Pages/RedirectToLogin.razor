@@ -1,0 +1,12 @@
+@inject NavigationManager Nav
+
+@code{
+    // Redirect to Login , attach returnUrl to comeback last login
+    protected override void OnInitialized()
+    {
+        // get Url
+        var uri = Nav.ToBaseRelativePath(Nav.Uri); // ex: http://localhost:5220/product?id=10 (structure Uri) -> cut domain -> product?id=10
+        Nav.NavigateTo($"login?returnUrl=/{Uri.EscapeDataString(uri)}" , forceLoad: false);
+        // EscapeDataString ->  avoid special character errors (?  &  =  /  space)
+    }
+}

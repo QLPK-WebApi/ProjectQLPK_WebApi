@@ -64,7 +64,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("UpdateAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id")
@@ -160,6 +160,9 @@ namespace Infrastructure.Migrations
                     b.Property<int>("AppointmentId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("InvoiceNumber")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -174,6 +177,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(10,2)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id")
                         .HasName("PK_Invoices_3214EC074A717040");
@@ -275,6 +281,9 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
@@ -302,6 +311,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<int>("Stock")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id")
                         .HasName("PK_Medicine_3214EC078E1D40EC");
@@ -393,6 +405,9 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id")
                         .HasName("PK_Payments_3214EC071B678636");
 
@@ -425,6 +440,9 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Status")
                         .HasMaxLength(50)
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id")
                         .HasName("PK_Prescrip_3214EC07CC0CDF3A");
@@ -507,6 +525,9 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id")
                         .HasName("PK_Roles_3214EC07DF74547F");
 
@@ -529,7 +550,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime>("CraetedAt")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -686,6 +707,9 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
@@ -694,6 +718,9 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id")
                         .HasName("PK_Specialty_3214EC07876F1114");
@@ -735,7 +762,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<bool>("IsActice")
+                    b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(true);

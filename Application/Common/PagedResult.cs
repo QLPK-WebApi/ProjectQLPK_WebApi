@@ -1,3 +1,6 @@
+using System.IO.Pipelines;
+using Microsoft.VisualBasic;
+
 namespace App_QLPK.Application.Common;
 
 
@@ -9,9 +12,12 @@ public class PagedResult<T>
     public IReadOnlyList<T> Items { get; init; } = Array.Empty<T>(); // nếu chưa có thì là mảng rỗng
 
     /*
+        IReadOnlyList : chỉ đọc, không cho Add, Remove ,...
+
         <T> dùng cho mọi kiểu dữ liệu : Patient , Doctor , Appointment, ...
 
         init : chỉ được gán giá trị khi khởi tạo , sau đó không sửa được
+        
     */
 
     public int PageIndex { get; init; }
@@ -25,7 +31,9 @@ public class PagedResult<T>
 
         (int)Math.Ceiling : làm tròn lên
     */
-    public bool HasPrevious => PageIndex > 1; // điều kiện để có trang trước
+    public bool HasPrevious => PageIndex > 1 ;  // điều kiện để có trang trước
     public bool HasNext => PageIndex < TotalPages; // điều kiện để có trang tiếp theo
 
+    
 }
+

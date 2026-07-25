@@ -1,8 +1,7 @@
 namespace App_QLPK.Domain.Entities;
 
-public  class MedicalRecord
+public  class MedicalRecord : BaseEntity
 {
-    public int Id { get; set;}
     public int AppointmentId { get; set;}
 
     public string? Diagnosis { get; set;} // chuẩn đoán
@@ -10,8 +9,6 @@ public  class MedicalRecord
     public string? Conclusion { get; set;} // kết luận
     public string? Notes { get; set;} // ghi chú
 
-    public DateTime CreatedAt { get; set;}
-    public DateTime? UpdatedAt { get; set;}
 
     public Appointment Appointment { get; set;} = null!;
     public ICollection<Prescription> Prescriptions { get; set;} = null!;

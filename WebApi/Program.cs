@@ -19,11 +19,11 @@ builder.Services.Configure<JwtOption>(builder.Configuration.GetSection(JwtOption
 
 // --------- Config JWT Authentication ---------
 var jwt = builder.Configuration.GetSection(JwtOption.SectionName).Get
-<JwtOption>()!;   // dấu " ! " : đảm bảo giá trị này không thể null 
+<JwtOption>()!;   // dấu " ! " : đảm bảo giá trị này không null 
 
 
 // =====  Cấu hình hệ thống JWT và Quy định kiểm tra Token có hợp lệ không ===== //
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme) 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
@@ -41,6 +41,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
     });
 builder.Services.AddAuthorization();
+
+// --- CORS cho frontend Blazor Server ---
+const string CorsPolicy = "BlazorClient";
+builder.Services.AddCors(options =>
+    options.AddPolicy(CorsPolicy, p => p
+        .WithOrigins(builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? [])
+        .AllowAnyHeader()
+        .AllowAnyMethod()));
 
 //  ------ Swagger có nút Authorize (Bearer) ------
 builder.Services.AddEndpointsApiExplorer();
@@ -76,6 +84,9 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPasswordHasher, BCryptPasswordHasher>();
 
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+builder.Services.AddScoped<IAppointmentService, AppointmentService>();
+
 // DI Jwt
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 
@@ -102,25 +113,22 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 
     // Mở phiên làm việc riêng để Seed tài khoản admin, password(BCrypt) 
-    using var scope = app.Services.CreateScope(); 
-
-    var sp = scope.ServiceProvider; // kho chứa service 
-
-    try // nếu kết nối được
+    using var scope = app.Services.CreateScope();
+    var sp = scope.ServiceProvider; // kho chứa service
+    try
     {
         var context = sp.GetRequiredService<QlpkDbContext>();
         var hasher = sp.GetRequiredService<IPasswordHasher>();
         await DbSeeder.SeedAsync(context, hasher);
     }
-    catch (Exception ex) // bỏ qua nếu lỗi để app vẫn chạy
-    {
-        app.Logger.LogWarning(ex, "Bỏ qua seed admin (DB chưa sẵn sàng?).");
-    }
+    // bỏ qua nếu lỗi để app vẫn chạy
+    catch (Exception ex) { app.Logger.LogWarning(ex, "Bỏ qua seed admin (DB chưa sẵn sàng?)."); }
 }
 
 app.UseHttpsRedirection();
+app.UseRouting();
+app.UseCors(CorsPolicy);
 
-// ------ Bật Middleware (bắt buộc) ------
 app.UseAuthentication();
 app.UseAuthorization();
 

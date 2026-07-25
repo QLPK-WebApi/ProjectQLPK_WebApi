@@ -4,9 +4,8 @@ namespace App_QLPK.Domain.Entities;
 /// <summary>
 /// Danh mục thuốc
 /// </summary> 
-public class Medicine
+public class Medicine : BaseEntity
 {
-    public int Id { get; set;}
     
     public string Code { get; set; } = null!;
     public string Name { get; set; } = null!;

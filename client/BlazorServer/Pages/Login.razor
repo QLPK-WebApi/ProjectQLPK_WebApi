@@ -1,0 +1,82 @@
+@using BlazorServer.Auth
+@using BlazorServer.Models
+@using BlazorServer.Services
+@using BlazorServer.Shared
+@page "/login"
+@layout EmptyLayout
+@inject AuthApiClient AuthApi
+@inject JwtAuthenticationStateProvider AuthState
+@inject NavigationManager Nav
+
+
+
+<PageTitle>Đăng nhập - QLPK</PageTitle>
+
+<div class="login-wrapper">
+    <div class="card shadow-sm login-card">
+        <div class="card-body p-4">
+            <h3 class="text-center mb-2">Phòng Khám QLPK</h3>
+            <p class="text-center text-muted mb-4">Đăng nhập hệ thống</p>
+
+
+            <EditForm Model="_model" OnValidSubmit="HandleLogin">
+                <DataAnnotationsValidator />
+
+                @if (!string.IsNullOrEmpty(_error))
+                {
+                    <div class="alert alert-danger py-2">@_error</div>
+                }
+
+                <div class="mb-3">
+                    <label class="form-label">Tên đăng nhập</label>
+                    <InputText class="form-control" @bind-Value="_model.Username" autofocus />
+                    <ValidationMessage For="() => _model.Username" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Mật khẩu</label>
+                    <InputText type="password" class="form-control" @bind-Value="_model.Password"/>
+                    <ValidationMessage For="() => _model.Password" />
+                </div>
+
+
+                <button type="Submit" class="w-100 btn btn-primary" disabled="@_loading">
+                    @(_loading ? "Đang đăng nập" : "Đăng nhập")
+                </button>
+            </EditForm>
+
+            <p class="text-center text-muted small mt-3 mb-0">
+                    Tài khoản thử: <code>admin</code> / <code>Admin@123</code>
+            </p>
+
+        </div>
+    </div>
+</div>
+
+@code {
+    [SupplyParameterFromQuery] public string? ReturnUrl { get; set; }
+
+    private readonly LoginRequest _model = new();
+    private string? _error;
+    private bool _loading;
+
+
+    private async Task HandleLogin()
+    {
+        _loading = true;
+        _error = null;
+        try{
+            var result = await AuthApi.LoginAsync(_model);
+            await AuthState.LoginAsync(result.Token);
+            Nav.NavigateTo(string.IsNullOrWhiteSpace(ReturnUrl) ? "/" : ReturnUrl);
+        }
+        catch (ApiException ex){
+            _error = ex.Message;
+        }
+        catch (Exception){
+            _error = "Không kết nối được tới máy chủ API.";
+        }
+        finally{
+            _loading = false;
+        }
+    }
+}
