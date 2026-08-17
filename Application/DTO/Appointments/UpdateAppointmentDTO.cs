@@ -14,3 +14,12 @@ public class UpdateAppointmentDTO
     [MaxLength(255)]
     public string? Notes { get; set; }
 }
+
+public class UpdateAppointmentStatusDTO
+{
+    [Required]
+    public string Status { get; set; } = null!;
+
+    [MaxLength(255)]
+    public string? CancelReason { get; set; }
+}

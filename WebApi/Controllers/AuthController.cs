@@ -18,11 +18,9 @@ public class AuthController : ControllerBase
         _auth = auth;
     }
 
-    
-    
-            /// <summary>
-            ///     Đăng nhập, trả về Jwt Token.
-            /// </summary>
+    /// <summary>
+    ///     Đăng nhập, trả về Jwt Token.
+    /// </summary>
             
     [HttpPost("login")]
     [AllowAnonymous]  // cho phép user trước khi đăng nhập, được phép gọi Api này --> nếu đăng nhập đúng username/password(đã đăng ký) -> cấp token JWT -> tránh lỗi 401 [Authorize]

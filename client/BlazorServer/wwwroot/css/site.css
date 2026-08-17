@@ -88,3 +88,32 @@ h1:focus {
     padding: 1rem;
 }
 .login-card { width: 100%; max-width: 380px; border: none; border-radius: 12px; }
+
+
+
+/*--- Biểu đồ cột cho màn hình báo cáo ---*/
+.wf-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.75rem;
+    height: 180px;
+}
+
+.wf-chart-bar {
+    flex: 1;
+    background: #dfe3ea;
+    border-radius: 4px 4px 0 0;
+    position: relative;
+}
+
+.wf-chart-bar span {
+    position: absolute;
+    bottom: -1.4rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #6c757d;
+}
+
+

@@ -13,9 +13,10 @@ public class UserRepository : RepositoryBase<User>, IUserRepository
     {
     }
 
+
     public Task<User?> GetByUsernameAsync(string username, CancellationToken ct = default)
     {
-        return _context.Users.Include(u => u.Role).SingleOrDefaultAsync(u => u.Username == username, ct);
+        return _context.Users.Include(u => u.Role).FirstOrDefaultAsync(u => u.Username == username, ct);
     }
 }
 

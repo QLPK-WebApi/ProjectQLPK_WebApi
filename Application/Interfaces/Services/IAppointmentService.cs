@@ -14,5 +14,7 @@ public interface IAppointmentService
 
     Task<AppointmentDTO> CreateAsync(CreateAppointmentDTO dto, CancellationToken ct = default);
     Task<AppointmentDTO> UpdateAsync(int id,UpdateAppointmentDTO dto, CancellationToken ct = default);
+    Task<AppointmentDTO> ChangeStatusAsync(int id, UpdateAppointmentStatusDTO dto, CancellationToken ct = default);
+
     Task DeleteAsync(int id, CancellationToken ct = default);
 }

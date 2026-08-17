@@ -1,0 +1,110 @@
+@page "/admin/reports"
+
+
+<PageTitle>Báo cáo & thống kê - QLPK</PageTitle>
+
+<div class="d-flex justify-content-between align-items-center mb-1">
+    <h1 class="h3 mb-0 fw-bold"><span class="badge bg-primary me-2">4</span>Báo cáo &amp; thống kê</h1>
+    <div class="d-flex gap-2">
+        <select class="form-select form-select-sm" style="width: 140px;">
+            <option selected>Tháng</option>
+            <option>Tuần</option>
+            <option>Quý</option>
+            <option>Năm</option>
+        </select> 
+        <select class="form-select form-select-sm" style="width: 160px;"> 
+            <option selected>Tất cả chi nhánh</option>
+            <option>Chi nhánh Quận 1</option>
+            <option>Chi nhánh Quận 7</option>
+        </select>
+    </div>
+</div>
+<p class="text-muted small mb-4">Doanh thu / Lượt khám / Cảnh báo tồn kho</p>
+
+
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-muted small">Doanh thu tháng 10/2020</div>
+                <div class="h4 mb-0">235.854.000 đ</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-muted small">Lượt khám</div>
+                <div class="h4 mb-0">688</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-muted small">Bệnh nhân mới</div>
+                <div class="h4 mb-0">92</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3 mt-3">
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-header bg-white fw-semibold">Doanh thu theo tháng</div>
+            <div class="card-body mb-2">
+                <div class="wf-chart">
+                    <div class="wf-chart-bar" style="height: 45%;"><span>T7</span></div>
+                    <div class="wf-chart-bar" style="height: 62%;"><span>T8</span></div>
+                    <div class="wf-chart-bar" style="height: 55%;"<span>T9</span></div>
+                    <div class="wf-chart-bar" style="height: 80%;"><span>T10</span></div>
+                    <div class="wf-chart-bar" style="height: 70%;"><span>T11</span></div>
+                    <div class="wf-chart-bar" style="height: 90%;"><span>T12</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-header bg-white fw-semibold">Lượt khám theo tháng</div>
+            <div class="card-body mb-2">
+                <div class="wf-chart">
+                    <div class="wf-chart-bar" style="height: 48%;" >
+                        <span>T7</span>
+                    </div>
+                    <div class="wf-chart-bar" style="height: 60%;">
+                        <span>T8</span>
+                    </div>
+                    <div class="wf-chart-bar" style="height: 72%;">
+                        <span>T9</span>
+                    </div>
+                    <div class="wf-chart-bar" style="height: 40%;">
+                        <span>T10</span>
+                    </div>
+                    <div class="wf-chart-bar" style="height: 48%;">
+                        <span>T11</span>
+                    </div>
+                    <div class="wf-chart-bar" style="height: 80%;">
+                        <span>T12</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-warning d-flex justify-content-between align-items-center text-danger mt-2" role="alert">
+    <div>
+        <strong>Cảnh báo tồn kho:</strong> 3 loại thuốc sắp hết - Paracetamol 500mg (12 viên) / Amoxicillin 500mg (10 viên) / Vitamin C 1000mg (10 viên).
+    </div>
+    <a class="btn btn-sm btn-outline-success" href="/admin/catalog">Xem danh mục thuốc</a>
+</div>
+
+<div class="text-end">
+    <button type="button" class="btn btn-outline-dark">Xuất PDF/Excel</button>
+</div>

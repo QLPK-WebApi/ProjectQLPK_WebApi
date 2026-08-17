@@ -1,0 +1,125 @@
+@page "/admin/catalog"
+
+
+<PageTitle>Quản lý danh mục - QLPK</PageTitle>
+
+<h1 class="h3 mb-1 fw-bold"><span class="badge bg-primary me-2">2</span>Quản lý danh mục</h1>
+<p class="text-muted small mb-4">Chuyên khoa / Bác sĩ &amp; chuyên khoa / Dịch vụ / Thuốc &amp; tồn kho</p>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <ul class="nav nav-pills gap-2">
+        <li class="nav-item"><a class="nav-link active" href="/admin/catalog">Chuyên khoa</a></li>
+        <li class="nav-item"><a class="nav-link border" href="/admin/catalog">Bác sĩ</a></li>
+        <li class="nav-item"><a class="nav-link border" href="/admin/catalog">Dịch vụ</a></li>
+        <li class="nav-item"><a class="nav-link border" href="/admin/catalog">Thuốc</a></li>
+    </ul>
+    <button type="button" class="btn btn-dark">+ Thêm mới</button>
+</div>
+
+
+<div class="row g-3">
+    <div class="col-lg-7">
+        <div class="card h-100">
+            <div class="card-header bg-white fw-semibold text-center">Danh sách chuyên khoa</div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Mã</th>
+                            <th>Tên chuyên khoa</th>
+                            <th>Mô tả</th>
+                            <th class="text-end">Thao tác</th>
+                        </tr>
+                    </thead>
+                        
+                    <tbody>
+                        <tr>
+                            <td>Khoa Nội</td>
+                            <td>Nội tổng quát</td>
+                            <td>Khám và điều trị nội khoa</td>
+                            <td class="text-end">
+                                <button type="button" class="btn btn-sm btn-outline-primary me-1">Sửa</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger me-1">Xóa</button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Khoa Nhi</td>
+                            <td>Nhi khoa</td>
+                            <td>Khám cho trẻ em dưới 15 tuổi</td>
+                            <td class="text-end">
+                                <button type="button" class="btn btn-sm btn-outline-primary me-1">Sửa</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger me-1">Xóa</button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Khoa RHM</td>
+                            <td>Răng hàm mặt</td>
+                            <td>Nha khoa tổng quát</td>
+                            <td class="text-end">
+                                <button type="button" class="btn btn-sm btn-outline-primary me-1">Sửa</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger me-1">Xóa</button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Khoa TMH</td>
+                            <td>Tai mũi họng</td>
+                            <td>Khám và điều trị Tai mũi họng</td>
+                            <td class="text-end">
+                                <button type="button" class="btn btn-sm btn-outline-primary me-1">Sửa</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger me-1">Xóa</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <div class="card h-100">
+            <div class="card-header bg-white fw-semibold text-center">Thông tin danh mục</div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label" for="cat-code">Mã</label>
+                    <input type="text" class="form-control" id="cat-code" placeholder="VD: Khoa Nội" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="cat-name">Tên</label>
+                    <input type="text" class="form-control" id="cat-name" placeholder="VD: Nội tổng quát" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="cat-price">Giá dịch vụ (VNĐ)</label>
+                    <input type="text" class="form-control" id="cat-price" placeholder="0" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="cat-code">Chuyên khoa liên quan</label>
+                    <select class="form-select" id="cat-specialty">
+                        <option selected>-- Chọn chuyên khoa --</option>
+                        <option>Nội tổng quát</option>
+                        <option>Nhi khoa</option>
+                        <option>Răng hàm mặt</option>
+                        <option>Tai mũi họng</option>
+                    </select>
+                </div>
+
+                <div class="mb-3 p-3 border border-danger-subtle rounded bg-danger-subtle">
+                    <label class="form-label" for="cat-stock">Số lượng tồn kho<span class="text-danger">(chỉ áp dụng tab thuốc)</span></label>
+                    <input type="text" class="form-control" id="cat-stock" placeholder="0" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="cat-desc" >Mô tả</label>
+                    <textarea class="form-control" id="cat-desc" rows="3"></textarea>
+                </div>
+
+                <div class="card-footer bg-white text-end">
+                    <button type="button" class="btn btn-outline-secondary me-1">Hủy</button>
+                    <button type="button" class="btn btn-dark">Lưu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

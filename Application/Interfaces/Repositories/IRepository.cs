@@ -12,7 +12,7 @@ public interface IRepository<T>
 
     Task UpdateAsync(T entity, CancellationToken ct = default);
 
-    Task DeleteAsync(T entity, CancellationToken ct = default);
+    void DeleteAsync(T entity);
 }
 
 

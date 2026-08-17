@@ -48,3 +48,19 @@
 
             ------##### BƯỚC 4 #####------
 - Cấu hình cho lịch khám(Appointment) và các bảng liên quan(Patient/Doctor + User) : lấy danh sách có phân trang
+
+
+
+
+
+
+
+
+// ========= FRONTEND - BlazorServer =========
+
+    ------##### BƯỚC 1 #####------
+        + use class TokenProvider để  lưu giữ Token
+        + tạo class AuthHeaderHandler : DelegatingHandler (chặn request trước khi gửi đi , tránh việc set Authorization header mỗi lần call API)
+        + tạo class JwtAuthenticationStateProvider : AuthenticationStateProvider (quản lý trạng thái login dựa trên Jwt lưu ở LocalStorage)
+
+    ------##### BƯỚC 2 #####------    

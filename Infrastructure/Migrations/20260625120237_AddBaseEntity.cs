@@ -11,7 +11,10 @@ namespace Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            
+            migrationBuilder.RenameColumn(
+                name: "IsActice",
+                table : "Users",
+                newName: "IsActive");
 
             migrationBuilder.RenameColumn(
                 name: "CraetedAt",

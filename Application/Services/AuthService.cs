@@ -42,7 +42,7 @@ public async Task<LoginResponse> LoginAsync(LoginRequest request, CancellationTo
         
         user.LastLoginAt = DateTime.UtcNow;
         await _userRepo.UpdateAsync(user, ct); // lưu vào DB
-
+        
         return new LoginResponse
         {
             Token = token,

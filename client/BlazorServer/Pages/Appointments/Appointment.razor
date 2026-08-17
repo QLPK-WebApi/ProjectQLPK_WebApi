@@ -11,7 +11,7 @@
 
 <div class="d-flex justify-content-between align-items-center mb-2">
     <h1 class="h3 mb-0 fs-1">Quản lý lịch hẹn</h1>
-    <button class="btn btn-primary" @onclick ="OpenCreate">
+    <button class="btn btn-primary" @onclick="OpenCreate">
         + Tạo lịch hẹn
     </button>
 </div>
@@ -66,12 +66,27 @@ else
                     <td>
                         <span class="badge @StatusClass(a.Status)">@StatusText(a.Status)</span>
                     </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+                    <td class="text-end">
+                        @if (a.Status == "Scheduled")
+                        {
+                            <button class="btn btn-sm btn-outline-success me-1"
+                                    @onclick="() => ChangeStatus(a, CheckedIn)">Check-in</button>
+                        }
 
-    @* <nav class="d-flex justify-content-between align-items-center">
+                        @if (a.Status is "Scheduled" or "CheckedIn")
+                        {
+                            <button class="btn btn-sm btn-outline-primary me-1" @onclick="() => ChangeStatus(a, Completed)">Hoàn
+                                tất</button>
+
+                                <button class="btn btn-sm btn-outline-danger" @onclick="() => CancelAsync(a)">Hủy</button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        @* <nav class="d-flex justify-content-between align-items-center">
         <span class="text-muted small">
             Tổng: @_result.TotalCount lịch hẹn
         </span>
@@ -91,13 +106,13 @@ else
             </button>
         </div>
     </nav> *@
-}
+    }
 
 
-@if (_showCreate)
-{
-    <AppointmentCreateDialog OnSaved ="OnCreated" OnCancel ="() => _showCreate = false" />
-}
+    @if (_showCreate)
+    {
+        <AppointmentCreateDialog OnSaved="OnCreated" OnCancel="() => _showCreate = false" />
+    }
 
 
 @code {
@@ -157,6 +172,31 @@ else
     {
         _showCreate = false;
         await LoadAsync(1);
+    }
+
+
+
+    private const string CheckedIn = "CheckedIn";
+    private const string Completed = "Comleted";
+    private async Task ChangeStatus(AppointmentModel a, string status)
+    {
+        try
+        {
+            await Api.ChangeStatusAsync(a.Id, status, null);
+            await LoadAsync(_result!.PageIndex);
+        }
+        catch (ApiException ex) { _error = ex.Message; }
+    }
+
+
+    private async Task CancelAsync(AppointmentModel a)
+    {
+        try
+        {
+            await Api.ChangeStatusAsync(a.Id, "Cancelled", "Hủy bởi người dùng");
+            await LoadAsync(_result!.PageIndex);
+        }
+        catch (ApiException ex) { _error = ex.Message; }
     }
 }
 

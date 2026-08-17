@@ -3,7 +3,7 @@
 
 <PageTitle>Trang chủ - QLPK</PageTitle>
 
-<h1 class="h3 mb-4">Hệ thống quản lý phòng khám</h1>
+<h1 class="h3 mb-4" style="font-weight: bold" >Hệ thống quản lý phòng khám</h1>
 
 <div class="row g-3">
     <div class="col-md-4">
@@ -11,12 +11,9 @@
             <div class="card-body">
                 <h5 class="card-title"> Lịch hẹn</h5>
                 <p class="card-text">Quản lý lịch hẹn khám bệnh.</p>
-                <a href="/appointments" class="btn btn-light btn-sm">Mở</a>
+                <a href="/appointments" class="btn btn-light btn-md">Mở</a>
             </div>
         </div>
     </div>
 </div>
 
-<AuthorizeView>
-    <p class="text-muted mt-4">Xin chào, <strong>@context.User.Identity?.Name</strong> 👋</p>
-</AuthorizeView>

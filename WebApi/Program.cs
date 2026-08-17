@@ -1,4 +1,6 @@
+using System.Security.Cryptography;
 using System.Text;
+using App_QLPK.Application.Interfaces;
 using App_QLPK.Application.Interfaces.Repositories;
 using App_QLPK.Application.Interfaces.Services;
 using App_QLPK.Application.Services;
@@ -17,7 +19,7 @@ var builder = WebApplication.CreateBuilder(args);
 // ------ Đăng ký vào DI cho Config Jwt ------
 builder.Services.Configure<JwtOption>(builder.Configuration.GetSection(JwtOption.SectionName));
 
-// --------- Config JWT Authentication ---------
+// --------- Config Jwt Authentication ---------
 var jwt = builder.Configuration.GetSection(JwtOption.SectionName).Get
 <JwtOption>()!;   // dấu " ! " : đảm bảo giá trị này không null 
 
@@ -87,17 +89,31 @@ builder.Services.AddScoped<IPasswordHasher, BCryptPasswordHasher>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 
+builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
+builder.Services.AddScoped<IDoctorService,DoctorService>();
+
+builder.Services.AddScoped<ISpecialtyRepository,SpecialtyRepository>();
+builder.Services.AddScoped<IRoleRepository,RoleRepository>();
+builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+
+
 // DI Jwt
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 
 
 builder.Services.AddOpenApi();
 
-// DI đăng ký DbContext
+//DI đăng ký DbContext
 builder.Services.AddDbContext<QlpkDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection"));
+
 });
+
+// builder.Services.AddDbContext<QlbhContext>(options =>
+// {
+//     options.UseSqlServer(builder.Configuration.GetConnectionString("Connection"));
+// });
 
 // Add Controllers
 builder.Services.AddControllers();
@@ -116,15 +132,18 @@ if (app.Environment.IsDevelopment())
     using var scope = app.Services.CreateScope();
     var sp = scope.ServiceProvider; // kho chứa service
     try
-    {
+    {   
         var context = sp.GetRequiredService<QlpkDbContext>();
         var hasher = sp.GetRequiredService<IPasswordHasher>();
         await DbSeeder.SeedAsync(context, hasher);
+
     }
     // bỏ qua nếu lỗi để app vẫn chạy
     catch (Exception ex) { app.Logger.LogWarning(ex, "Bỏ qua seed admin (DB chưa sẵn sàng?)."); }
-}
 
+
+
+}
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseCors(CorsPolicy);

@@ -76,7 +76,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex(new[] { "PatientId" }, "Index_Appointments_PatientId");
 
-                    b.ToTable("Appointments");
+                    b.ToTable("Appointments", (string)null);
                 });
 
             modelBuilder.Entity("App_QLPK.Domain.Entities.Doctor", b =>
@@ -122,7 +122,7 @@ namespace Infrastructure.Migrations
                     b.HasIndex(new[] { "UserId" }, "UQ_Doctors_1788CC4D23969187")
                         .IsUnique();
 
-                    b.ToTable("Doctors");
+                    b.ToTable("Doctors", (string)null);
                 });
 
             modelBuilder.Entity("App_QLPK.Domain.Entities.DoctorSpecialty", b =>
@@ -146,7 +146,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("SpecialtyId");
 
-                    b.ToTable("DoctorSpecialties");
+                    b.ToTable("DoctorSpecialties", (string)null);
                 });
 
             modelBuilder.Entity("App_QLPK.Domain.Entities.Invoice", b =>
@@ -191,7 +191,7 @@ namespace Infrastructure.Migrations
                     b.HasIndex(new[] { "InvoiceNumber" }, "UQ_Invoices_D776E98106A36154")
                         .IsUnique();
 
-                    b.ToTable("Invoices");
+                    b.ToTable("Invoices", (string)null);
                 });
 
             modelBuilder.Entity("App_QLPK.Domain.Entities.InvoiceDetail", b =>
@@ -223,7 +223,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("InvoiceId");
 
-                    b.ToTable("InvoiceDetails");
+                    b.ToTable("InvoiceDetails", (string)null);
                 });
 
             modelBuilder.Entity("App_QLPK.Domain.Entities.MedicalRecord", b =>
@@ -265,7 +265,7 @@ namespace Infrastructure.Migrations
                     b.HasIndex(new[] { "AppointmentId" }, "UQ_MedicalR_8ECDFCC33FA7AEBF")
                         .IsUnique();
 
-                    b.ToTable("MedicalRecords");
+                    b.ToTable("MedicalRecords", (string)null);
                 });
 
             modelBuilder.Entity("App_QLPK.Domain.Entities.Medicine", b =>
@@ -321,7 +321,7 @@ namespace Infrastructure.Migrations
                     b.HasIndex(new[] { "Code" }, "UQ_Medicine_A25C5AA74131C8A8")
                         .IsUnique();
 
-                    b.ToTable("Medicines");
+                    b.ToTable("Medicines", (string)null);
                 });
 
             modelBuilder.Entity("App_QLPK.Domain.Entities.Patient", b =>
@@ -374,7 +374,7 @@ namespace Infrastructure.Migrations
                     b.HasIndex(new[] { "UserId" }, "UQ_Patients_1788CC4D257182D3")
                         .IsUnique();
 
-                    b.ToTable("Patients");
+                    b.ToTable("Patients", (string)null);
                 });
 
             modelBuilder.Entity("App_QLPK.Domain.Entities.Payment", b =>
@@ -413,7 +413,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("InvoiceId");
 
-                    b.ToTable("Payments");
+                    b.ToTable("Payments", (string)null);
                 });
 
             modelBuilder.Entity("App_QLPK.Domain.Entities.Prescription", b =>
@@ -449,7 +449,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("MedicalRecordId");
 
-                    b.ToTable("Prescriptions");
+                    b.ToTable("Prescriptions", (string)null);
                 });
 
             modelBuilder.Entity("App_QLPK.Domain.Entities.PrescriptionDetail", b =>
@@ -497,7 +497,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("PrescriptionId");
 
-                    b.ToTable("PrescriptionDetails");
+                    b.ToTable("PrescriptionDetails", (string)null);
                 });
 
             modelBuilder.Entity("App_QLPK.Domain.Entities.Role", b =>
@@ -534,7 +534,7 @@ namespace Infrastructure.Migrations
                     b.HasIndex(new[] { "Code" }, "UQ_Roles_A25C5AA705467315")
                         .IsUnique();
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("App_QLPK.Domain.Entities.Service", b =>
@@ -574,7 +574,7 @@ namespace Infrastructure.Migrations
                     b.HasIndex(new[] { "Code" }, "UQ_Services_A25C5AA750045F12")
                         .IsUnique();
 
-                    b.ToTable("Services");
+                    b.ToTable("Services", (string)null);
                 });
 
             modelBuilder.Entity("App_QLPK.Domain.Entities.ServiceOrder", b =>
@@ -620,7 +620,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("ServiceOrders");
+                    b.ToTable("ServiceOrders", (string)null);
                 });
 
             modelBuilder.Entity("App_QLPK.Domain.Entities.ServiceResult", b =>
@@ -659,7 +659,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("TestByDoctorId");
 
-                    b.ToTable("ServiceResults");
+                    b.ToTable("ServiceResults", (string)null);
                 });
 
             modelBuilder.Entity("App_QLPK.Domain.Entities.ServiceResultDetail", b =>
@@ -696,7 +696,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("ServiceResultId");
 
-                    b.ToTable("ServiceResultDetails");
+                    b.ToTable("ServiceResultDetails", (string)null);
                 });
 
             modelBuilder.Entity("App_QLPK.Domain.Entities.Specialty", b =>
@@ -728,7 +728,7 @@ namespace Infrastructure.Migrations
                     b.HasIndex(new[] { "Name" }, "UQ_Specialty_737584F6E052D4DD")
                         .IsUnique();
 
-                    b.ToTable("Specialties");
+                    b.ToTable("Specialties", (string)null);
                 });
 
             modelBuilder.Entity("App_QLPK.Domain.Entities.User", b =>
@@ -809,7 +809,7 @@ namespace Infrastructure.Migrations
                         .IsUnique()
                         .HasFilter("[Email] IS NOT NULL");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("App_QLPK.Domain.Entities.Appointment", b =>

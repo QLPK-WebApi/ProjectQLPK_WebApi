@@ -52,7 +52,7 @@ public class AppointmentController : ControllerBase
 
 
     [HttpPost("Create")]
-    [Authorize(Roles = "ADMIN, RECEPTIONIST, DOCTOR")]
+    [Authorize(Roles = "Admin, Receptionist, Doctor")]
     public async Task<IActionResult> Create([FromBody] CreateAppointmentDTO dto, CancellationToken ct)
     {
         var created = await _service.CreateAsync(dto, ct);
@@ -61,8 +61,8 @@ public class AppointmentController : ControllerBase
     }
 
 
-    [HttpPut("Update{id:int}")]
-    [Authorize(Roles = "ADMIN, RECEPTIONIST, DOCTOR")]
+    [HttpPut("Update/{id:int}")]
+    [Authorize(Roles = "Admin, Receptionist, Doctor")]
     public async Task<IActionResult> Update(int id, [FromBody] UpdateAppointmentDTO dto, CancellationToken ct)
     {
         var updated = await _service.UpdateAsync(id, dto, ct);
@@ -70,10 +70,20 @@ public class AppointmentController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
-    [Authorize(Roles = "ADMIN, RECEPTIONIST")]
+    [Authorize(Roles = "Admin, Receptionist")]
     public async Task<IActionResult> Delete(int id, CancellationToken ct)
     {
         await _service.DeleteAsync(id, ct);
         return Ok(new { message = "Đã hủy lịch hẹn." });
     }
+
+
+    [HttpPut("Status/{id:int}")]
+    public async Task<IActionResult> ChangeStatus(int id, [FromBody] UpdateAppointmentStatusDTO dto, CancellationToken ct)
+    {
+        var updated = await _service.ChangeStatusAsync(id, dto, ct);
+        return Ok(new {message = "Đổi trạng thái thành công", data = updated});
+    }
+
+
 }

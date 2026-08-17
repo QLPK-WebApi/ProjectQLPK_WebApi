@@ -1,0 +1,86 @@
+@page "/admin/invoices"
+
+<PageTitle>Hóa đơn & thanh toán - QLPK</PageTitle>
+
+<div class="d-flex justify-content-between align-items-center mb-1">
+    <h1 class="h3 mb-0 fw-bold"><span class="badge bg-primary me-2">3</span>Hóa đơn &amp; thanh toán</h1>
+    <button type="button" class="btn btn-dark">+ Lập hóa đơn</button>
+</div>
+<p class="text-muted small mb-4">Lập hóa đơn / Xác nhận thanh toán</p>
+
+<div class="row g3 mb-4 text-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-muted small">Tổng doanh thu hôm nay</div>
+                <div class="h4 mb-0">12.450.000 đ</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="text-muted small">Chưa thanh toán</div>
+                <div class="h4 mb-0">3.200.000 đ</div>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<div class="card mb-4">
+    <div class="card-header bg-white fw-semibold text-center h5">Danh sách hóa đơn</div>
+    <div class="table-reponsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Số HĐ</th>
+                    <th>Bệnh nhân</th>
+                    <th>Ngày lập</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                    <th class="text-end">Thao tác</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>HD-0015</td>
+                    <td>Nguyễn Tấn Hoàng</td>
+                    <td>29/10/2020</td>
+                    <td>850.000</td>
+                    <td><span class="badge bg-warning text-dark">Chưa thanh toán</span></td>
+                    <td class="text-end">
+                        <button type="button" class="btn btn-sm btn-outline-success">Xác nhận</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>HD-0016</td>
+                    <td>Đặng Minh Tiến</td>
+                    <td>01/11/2020</td>
+                    <td>1.350.000</td>
+                    <td><span class="badge bg-warning text-dark">Chưa thanh toán</span></td>
+                    <td class="text-end">
+                        <button type="button" class="btn btn-sm btn-outline-success">Xác nhận</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>HD-0017</td>
+                    <td>Nguyễn Hoàng Sơn</td>
+                    <td>02/11/2020</td>
+                    <td>550.000</td>
+                    <td><span class="badge bg-success">Đã thanh toán</span></td>
+                    <td class="text-end">
+                        <button type="button" class="btn btn-sm btn-outline-secondary">Xem</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer bg-white text-end">
+        <button type="button" class="btn btn-outline-dark">In / Xuất</button>
+    </div>
+</div>
+

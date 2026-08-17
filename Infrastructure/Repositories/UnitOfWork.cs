@@ -1,36 +1,40 @@
 
 
-// using App_QLPK.Infrastructure.Persistence;
+using App_QLPK.Application.Interfaces;
+using App_QLPK.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore.Storage;
 
-// namespace App_QLPK.Infrastructure.Repositories;
+namespace App_QLPK.Infrastructure.Repositories;
 
-// public class UnitOfWork
-// {
-//     public readonly QlpkDbContext _context;
+public class UnitOfWork : IUnitOfWork
+{
+    private readonly QlpkDbContext _context;
+    private IDbContextTransaction? _transaction;
 
-//     public UnitOfWork(QlpkDbContext context)
-//     {
-//         _context = context;
-//     }
+    public UnitOfWork(QlpkDbContext context)
+        => _context = context;
 
+    public async Task BeginTransactionAsync(CancellationToken ct)
+    {
+        _transaction = await _context.Database.BeginTransactionAsync(ct);
+    }
 
-//     public async Task BeginTransactionAsync()
-//     {
-//         await _context.Database.BeginTransactionAsync();
-//     }
+    public async Task CommitAsync(CancellationToken ct)
+    {
+        await _context.SaveChangesAsync(ct);
 
-//     public async Task CommitTransaction()
-//     {
-//         await _context.Database.CommitTransactionAsync();
-//     }
+        if (_transaction != null)
+            await _transaction.CommitAsync(ct);
+    }
 
-//     public async Task RollBackTransaction()
-//     {
-//         await _context.Database.RollbackTransactionAsync();
-//     }
+    public async Task RollbackAsync(CancellationToken ct)
+    {
+        if (_transaction != null)
+            await _transaction.RollbackAsync(ct);
+    }
 
-//     public async Task SaveChangesAsync()
-//     {
-//         await _context.SaveChangesAsync();
-//     }
-// }
+    public async Task<int> SaveChangesAsync(CancellationToken ct)
+    {
+        return await _context.SaveChangesAsync(ct);
+    }
+}

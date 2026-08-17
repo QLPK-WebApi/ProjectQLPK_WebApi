@@ -25,7 +25,7 @@ public class AppointmentRepository : RepositoryBase<Appointment>, IAppointmentRe
     {
         var query = WithRelations().AsNoTracking(); // off tracking ( tắt theo dõi của EF)
 
-        if (!string.IsNullOrWhiteSpace(keyword))
+        if (!string.IsNullOrEmpty(keyword))
         {
             var k = keyword.Trim();
             query = query.Where(a => a.Patient.User.FullName.Contains(k) || a.Doctor.User.FullName.Contains(k) || 
@@ -42,8 +42,6 @@ public class AppointmentRepository : RepositoryBase<Appointment>, IAppointmentRe
         return (items, total);
     }
 
-    public override async Task<Appointment?> GetByIdAsync(int id, CancellationToken ct = default)
-        => await _dbSet.FirstOrDefaultAsync(a => a.Id == id, ct);
 
 
 
