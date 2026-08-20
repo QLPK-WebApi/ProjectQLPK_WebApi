@@ -1,11 +1,17 @@
 ﻿@using BlazorServer.Auth
 @using Microsoft.AspNetCore.Components.Web
 @using Microsoft.AspNetCore.Components.Authorization
+@using MudBlazor
 @inherits LayoutComponentBase
 @inject JwtAuthenticationStateProvider AuthState
 @inject NavigationManager Nav
 
 @* Tạo khung UI chung cho tất cả các trang *@
+
+<MudThemeProvider />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
 
 <div class="page">
     <div class="sidebar">

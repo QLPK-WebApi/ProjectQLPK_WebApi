@@ -18,7 +18,7 @@ namespace WebApi.Controllers
 
         private readonly IDoctorService _service;
         public DoctorController(IDoctorService service)
-            => _service = service;
+            => _service = service;     
 
 
         [HttpPost("Create")]

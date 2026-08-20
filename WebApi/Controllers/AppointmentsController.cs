@@ -18,10 +18,10 @@ using Microsoft.AspNetCore.Mvc;
 [ApiController]
 [Route("api/[controller]")]
 [Authorize] // mọi Endpoint yêu cầu Jwt hợp lệ
-public class AppointmentController : ControllerBase
+public class AppointmentsController : ControllerBase
 {
     private readonly IAppointmentService _service;
-    public AppointmentController(IAppointmentService servece)
+    public AppointmentsController(IAppointmentService servece)
         => _service = servece;
 
 
@@ -51,7 +51,7 @@ public class AppointmentController : ControllerBase
 
 
 
-    [HttpPost("Create")]
+    [HttpPost]
     [Authorize(Roles = "Admin, Receptionist, Doctor")]
     public async Task<IActionResult> Create([FromBody] CreateAppointmentDTO dto, CancellationToken ct)
     {
@@ -78,7 +78,7 @@ public class AppointmentController : ControllerBase
     }
 
 
-    [HttpPut("Status/{id:int}")]
+    [HttpPut("{id:int}/status")]
     public async Task<IActionResult> ChangeStatus(int id, [FromBody] UpdateAppointmentStatusDTO dto, CancellationToken ct)
     {
         var updated = await _service.ChangeStatusAsync(id, dto, ct);

@@ -3,12 +3,16 @@ using BlazorServer.Auth;
 using Microsoft.AspNetCore.Components.Authorization;
 using BlazorServer.Pages;
 using BlazorServer.Services;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+// --- MudBlazor ---
+builder.Services.AddMudServices();
 
 // --- Xác thực phía client (JWT lưu ở ProtectedLocalStorage) ---
 builder.Services.AddScoped<TokenProvider>();
@@ -19,15 +23,14 @@ builder.Services.AddAuthorizationCore();
 builder.Services.AddCascadingAuthenticationState();
 
 
-// --- HttpClient gọi Web API, tự đính kèm Bearer token ---
+// --- HttpClient gọi Web API ---
+// Bearer token được đính kèm trực tiếp trong từng typed client (đọc từ TokenProvider),
+// KHÔNG dùng DelegatingHandler vì IHttpClientFactory tạo handler pipeline từ một DI scope
+// riêng (không phải scope của circuit Blazor Server hiện tại) nên không thể lấy đúng
+// TokenProvider (Scoped) của người dùng đang đăng nhập.
 var apiBaseUrl = builder.Configuration["ApiBaseUrl"] ?? "http://localhost:5220/";
-builder.Services.AddTransient<AuthHeaderHandler>();
-builder.Services.AddHttpClient<AuthApiClient>(c => c.BaseAddress = new Uri(apiBaseUrl))
-    .AddHttpMessageHandler<AuthHeaderHandler>();
-
-
-builder.Services.AddHttpClient<AppointmentApiClient>(c => c.BaseAddress = new Uri(apiBaseUrl))
-    .AddHttpMessageHandler<AuthHeaderHandler>();
+builder.Services.AddHttpClient<AuthApiClient>(c => c.BaseAddress = new Uri(apiBaseUrl));
+builder.Services.AddHttpClient<AppointmentApiClient>(c => c.BaseAddress = new Uri(apiBaseUrl));
 
 var app = builder.Build();
 

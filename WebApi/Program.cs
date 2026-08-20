@@ -121,6 +121,12 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
+// --- Tự động apply migration mỗi khi app khởi động ---
+using (var migrationScope = app.Services.CreateScope())
+{
+    var context = migrationScope.ServiceProvider.GetRequiredService<QlpkDbContext>();
+    await context.Database.MigrateAsync();
+}
 
 if (app.Environment.IsDevelopment())
 {
@@ -128,11 +134,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 
-    // Mở phiên làm việc riêng để Seed tài khoản admin, password(BCrypt) 
+    // Mở phiên làm việc riêng để Seed tài khoản admin, password(BCrypt)
     using var scope = app.Services.CreateScope();
     var sp = scope.ServiceProvider; // kho chứa service
     try
-    {   
+    {
         var context = sp.GetRequiredService<QlpkDbContext>();
         var hasher = sp.GetRequiredService<IPasswordHasher>();
         await DbSeeder.SeedAsync(context, hasher);
