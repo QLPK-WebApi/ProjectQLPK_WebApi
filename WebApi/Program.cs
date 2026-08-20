@@ -14,7 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);   
 
 // ------ Đăng ký vào DI cho Config Jwt ------
 builder.Services.Configure<JwtOption>(builder.Configuration.GetSection(JwtOption.SectionName));
