@@ -1,0 +1,266 @@
+@page "/doctor/examination"
+@implements IDisposable
+
+<PageTitle>Khám & bệnh án - QLPK</PageTitle>
+
+<MudStack Row="true" AlignItems="AlignItems.Center">
+    <MudChip T="string" Color="Color.Tertiary" Size="Size.Medium">
+        2
+    </MudChip>
+
+    <MudText Typo="Typo.h4" Style="font-weight: 700;">
+        Khám &amp; bệnh án
+    </MudText>
+</MudStack>
+
+<MudText Typo="Typo.body2" Color="Color.Secondary" >
+    Lập hồ sơ bệnh án - Chuẩn đoán &amp; kết luận
+</MudText>
+
+<MudGrid Spacing="3">
+    <MudItem xs="12" lg="3">
+
+        <MudPaper Elevation="1" Class="pa-4 h-100">
+            <MudStack AlignItems="AlignItems.Center">
+                <MudAvatar Size="Size.Large" Color="Color.Primary" Class="mb-2">
+                    NT
+                </MudAvatar>
+
+                <MudText Typo="Typo.h6">
+                    Nguyễn Thị Lan
+                </MudText>
+
+                <MudText Typo="Typo.body2" Color="Color.Secondary" Class="mb-3">
+                    Nữ · 34 tuổi · BN-00124
+                </MudText>
+            </MudStack>
+
+
+            <MudDivider Class="mb-2"/>
+
+
+            <MudList T="string "Dense="true">
+
+                <MudListItem>
+                    <MudText Typo="Typo.body2">
+                        <b>Số điện thoại:</b> 0901 234 778
+                    </MudText>
+                </MudListItem>
+
+                <MudListItem>
+                    <MudText Typo="Typo.body2">
+                        <b>Nhóm máu:</b> 0
+                    </MudText>
+                </MudListItem>
+
+                <MudListItem>
+                    <MudText Typo="Typo.body2">
+                        <b>Dị ứng:</b> Penicillin
+                    </MudText>
+                </MudListItem>
+
+                <MudListItem>
+                    <MudText Typo="Typo.body2">
+                        <b>Tiền sử:</b> Viêm dạ dày (2024)
+                    </MudText>
+                </MudListItem>
+
+                <MudListItem>
+                    <MudText Typo="Typo.body2">
+                        <b>Bệnh nền:</b> Không
+                    </MudText>
+                </MudListItem>
+
+            </MudList>
+
+        </MudPaper> 
+
+    </MudItem>
+
+
+    <MudItem xs="12" lg="6">
+        <MudPaper Elevation="1" Class="h-100">
+                    @* Header *@
+            <MudPaper Elevation="0" Class="pa-4" Style="backgroud-color: transparent;">
+                <MudText Typo="Typo.h6" Style="font-weight: 600;">
+                    Phiếu khám - 09/08/2026
+                </MudText>
+
+            </MudPaper>
+
+            <MudDivider />
+
+                        @* Nội dung *@
+            <MudStack Spacing="3" Class="pa-4">
+
+                <MudTextField T="string" 
+                            Label="Lý do khám" 
+                            Variant="Variant.Outlined" 
+                            @bind-Value="Reason" 
+                            Placeholder="Nhập lý do khám..."/>
+
+                <MudTextField T="string"
+                            Label="Triệu chứng / khám lâm sàng"
+                            Variant="Variant.Outlined"
+                            Lines="4"
+                            @bind-Value="Symptoms"
+                            Placeholder="Mạch, huyết áp, nhiệt độ, triệu chứng..." />
+                
+                <MudTextField T="string"
+                Label="Chẩn đoán"
+                Variant="Variant.Outlined"
+                @bind-Value="Diagnosis"
+                Placeholder="VD: Rối loạn tiền đình" />
+
+                <MudTextField T="string" Label="Kết luận & hướng xử trí" Variant="Variant.Outlined" Lines="3"
+                              @bind-Value="Conclusion" Placeholder="Nhập kết luận và hướng xử trí..." />
+            </MudStack>
+
+            <MudDivider />
+
+            @* Footer *@
+            <MudStack Row="true"
+                      Justify="Justify.SpaceBetween"
+                      AlignItems="AlignItems.Center"
+                      Class="pa-4">
+
+                <MudStack Row="true" Spacing="2">
+
+                    <MudButton Variant="Variant.Outlined"
+                               Color="Color.Default"
+                               Href="/doctor/orders">
+                        + Chỉ định
+                    </MudButton>
+
+                    <MudButton Variant="Variant.Outlined"
+                               Color="Color.Default"
+                               Href="/doctor/prescription">
+                        + Kê đơn
+                    </MudButton>
+
+                </MudStack>
+
+                <MudButton Variant="Variant.Filled"
+                           Color="Color.Dark"
+                           OnClick="SaveExamination">
+                    Lưu bệnh án
+                </MudButton>
+
+            </MudStack>
+
+        </MudPaper>
+    </MudItem>
+
+
+    @* =========================
+       CỘT PHẢI - LỊCH SỬ KHÁM
+       ========================= *@
+    <MudItem xs="12" lg="3">
+        <MudPaper Elevation="1" Class="h-100">
+
+            <MudText Typo="Typo.h6"
+                     Style="font-weight: 600;"
+                     Class="pa-4">
+                Lịch sử khám
+            </MudText>
+
+            <MudDivider />
+
+            <MudList T="string" Dense="true">
+
+                <MudListItem>
+                    <MudStack Spacing="0">
+                        <MudText Typo="Typo.caption"
+                                 Color="Color.Secondary">
+                            12/05/2026
+                        </MudText>
+
+                        <MudText Typo="Typo.body1"
+                                 Style="font-weight: 600;">
+                            Viêm họng cấp
+                        </MudText>
+
+                        <MudText Typo="Typo.caption"
+                                 Color="Color.Secondary">
+                            BS. Nguyễn Văn Hoàng
+                        </MudText>
+                    </MudStack>
+                </MudListItem>
+
+                <MudDivider />
+
+                <MudListItem>
+                    <MudStack Spacing="0">
+                        <MudText Typo="Typo.caption"
+                                 Color="Color.Secondary">
+                            28/04/2026
+                        </MudText>
+
+                        <MudText Typo="Typo.body1"
+                                 Style="font-weight: 600;">
+                            Viêm dạ dày
+                        </MudText>
+
+                        <MudText Typo="Typo.caption"
+                                 Color="Color.Secondary">
+                            BS. Trần Thu Hà
+                        </MudText>
+                    </MudStack>
+                </MudListItem>
+
+                <MudDivider />
+
+                <MudListItem>
+                    <MudStack Spacing="0">
+                        <MudText Typo="Typo.caption"
+                                 Color="Color.Secondary">
+                            15/01/2026
+                        </MudText>
+
+                        <MudText Typo="Typo.body1"
+                                 Style="font-weight: 600;">
+                            Khám tổng quát
+                        </MudText>
+
+                        <MudText Typo="Typo.caption"
+                                 Color="Color.Secondary">
+                            BS. Nguyễn Văn Hoàng
+                        </MudText>
+                    </MudStack>
+                </MudListItem>
+
+            </MudList>
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+
+
+@code{
+
+    private string Reason { get; set; } = "Đau đầu, chóng mặt 3 ngày";
+
+    private string Symptoms { get; set; } = "";
+
+    private string Diagnosis { get; set; } = "";
+
+    private string Conclusion { get; set; } = "";
+
+
+    protected override void OnInitialized()
+    {
+        // Khởi tạo dữ liệu màn hình
+    }
+
+
+    private void SaveExamination()
+    {
+        // TODO: Lưu bệnh án
+    }
+
+
+
+    public void Dispose()
+    {
+
+    }
+}

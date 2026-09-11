@@ -1,0 +1,322 @@
+@page "/patient/booking"
+@implements IDisposable
+
+<PageTitle>Đặt & theo dõi lịch - QLPK</PageTitle>
+<MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+    <MudChip T="string" Color="Color.Error" Size="Size.Medium" >
+        2
+    </MudChip>
+    
+    <MudText Typo="Typo.h4" Class="mb-1" Style="font-weight: 700;" ">
+        Đặt &amp; theo dõi lịch
+    </MudText>
+</MudStack>
+
+
+<MudText Typo="Typo.body2" Color="Color.Secondary" Class="mb-4"  >
+    Đặt lịch hẹn · Theo dõi lịch hẹn </MudText>
+
+    <MudPaper  Elevation="2">
+
+        <!-- Header -->
+        <MudPaper Elevation="0" Square="true" Class="pa-3" Style="background-color:#f8f3f3;">
+
+            <MudText Typo="Typo.subtitle1"  >
+                App · Đặt lịch hẹn
+            </MudText>
+
+        </MudPaper>
+
+        <!-- Body -->
+        <MudCardContent Class="wf-phone-body">
+
+            <!-- Chuyên khoa -->
+            <MudSelect T="string" Label="Chuyên khoa" Variant="Variant.Outlined" Margin="Margin.Dense" FullWidth="true"
+                       Class="mb-3">
+
+                <MudSelectItem Value="@("Nội tổng quát")">
+                    Nội tổng quát
+                </MudSelectItem>
+
+                <MudSelectItem Value="@("Nhi khoa")">
+                    Nhi khoa
+                </MudSelectItem>
+
+                <MudSelectItem Value="@("Răng hàm mặt")">
+                    Răng hàm mặt
+                </MudSelectItem>
+
+                <MudSelectItem Value="@("Tai mũi họng")">
+                    Tai mũi họng
+                </MudSelectItem>
+
+            </MudSelect>
+
+
+            <!-- Bác sĩ -->
+            <MudSelect T="string" Label="Bác sĩ" Variant="Variant.Outlined" Margin="Margin.Dense" FullWidth="true"
+                       Class="mb-3">
+
+                <MudSelectItem Value="@("BS. Nguyễn Văn Hoàng")">
+                    BS. Nguyễn Văn Hoàng
+                </MudSelectItem>
+
+                <MudSelectItem Value="@("BS. Trần Thu Hà")">
+                    BS. Trần Thu Hà
+                </MudSelectItem>
+
+                <MudSelectItem Value="@("BS. Lê Quang Duy")">
+                    BS. Lê Quang Duy
+                </MudSelectItem>
+
+            </MudSelect>
+
+
+            <!-- Ngày khám -->
+            <MudDatePicker Label="Ngày khám" Variant="Variant.Outlined" Margin="Margin.Dense" 
+                           DateFormat="dd/MM/yyyy" Class="mb-3" />
+
+
+            <!-- Khung giờ trống -->
+            <MudText Typo="Typo.body2" Class="mb-2">
+                Khung giờ trống
+            </MudText>
+
+            <MudStack Row="true" Spacing="1" Class="mb-3">
+
+                <MudChip T="string" Variant="Variant.Outlined">
+                    8:00
+                </MudChip>
+
+                <MudChip T="string" Color="Color.Dark" Variant="Variant.Filled">
+                    9:00
+                </MudChip>
+
+                <MudChip T="string" Variant="Variant.Outlined">
+                    10:00
+                </MudChip>
+
+                <MudChip T="string" Variant="Variant.Outlined">
+                    11:00
+                </MudChip>
+
+                <MudChip T="string" Variant="Variant.Outlined" Disabled="true">
+                    14:00
+                </MudChip>
+
+                <MudChip T="string" Variant="Variant.Outlined">
+                    15:00
+                </MudChip>
+
+            </MudStack>
+
+
+            <!-- Xác nhận đặt lịch -->
+            <MudButton Variant="Variant.Filled" Color="Color.Dark" FullWidth="true" Class="mb-4">
+
+                Xác nhận đặt lịch
+
+            </MudButton>
+
+
+            <!-- Lịch hẹn của tôi -->
+            <MudText Typo="Typo.subtitle2" Class="mb-2">
+                Lịch hẹn của tôi
+            </MudText>
+
+
+            <MudList T="string" Dense="true" DisableGutters="true">
+
+                <!-- Appointment 1 -->
+                <MudListItem>
+
+                    <div class="d-flex justify-content-between align-items-center w-100">
+
+                        <div>
+                            <MudText Typo="Typo.body2" Class="fw-semibold">
+                                12/08/2026 · 09:00
+                            </MudText>
+
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                BS. Nguyễn Văn Hoàng · Nội tổng quát
+                            </MudText>
+                        </div>
+
+                        <MudChip T="string" Size="Size.Small" Color="Color.Success" Variant="Variant.Outlined">
+                            Đã xác nhận
+                        </MudChip>
+
+                    </div>
+
+                </MudListItem>
+
+
+                <!-- Appointment 2 -->
+                <MudListItem>
+
+                    <div class="d-flex justify-content-between align-items-center w-100">
+
+                        <div>
+                            <MudText Typo="Typo.body2" Class="fw-semibold">
+                                20/08/2026 · 15:30
+                            </MudText>
+
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                BS. Trần Thu Hà · Tai mũi họng
+                            </MudText>
+                        </div>
+
+                        <MudChip T="string" Size="Size.Small" Color="Color.Warning" Variant="Variant.Outlined">
+                            Chờ xác nhận
+                        </MudChip>
+
+                    </div>
+
+                </MudListItem>
+
+
+                <!-- Appointment 3 -->
+                <MudListItem>
+
+                    <div class="d-flex justify-content-between align-items-center w-100">
+
+                        <div>
+                            <MudText Typo="Typo.body2" Class="fw-semibold">
+                                28/07/2026 · 08:30
+                            </MudText>
+
+                            <MudText Typo="Typo.caption" Color="Color.Secondary">
+                                BS. Lê Quang Duy · Nhi khoa
+                            </MudText>
+                        </div>
+
+                        <MudChip T="string" Size="Size.Small" Color="Color.Secondary" Variant="Variant.Outlined">
+                            Đã khám
+                        </MudChip>
+
+                    </div>
+
+                </MudListItem>
+
+            </MudList>
+
+        </MudCardContent>
+
+    </MudPaper>
+
+@code {
+
+protected override void OnInitialized()
+    {
+        // Khởi tạo dữ liệu màn hình (chưa hiện thực).
+    }
+
+    public void Dispose()
+    {
+        // Giải phóng tài nguyên của màn hình (chưa hiện thực).
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* @page "/patient/booking"
+@implements IDisposable
+
+<PageTitle>Đặt & theo dõi lịch - QLPK</PageTitle>
+
+<h1 class="h3 mb-1">Đặt &amp; theo dõi lịch</h1>
+<p class="text-muted small mb-4">Đặt lịch hẹn · Theo dõi lịch hẹn</p>
+
+<div class="wf-phone">
+    <div class="wf-phone-header">App · Đặt lịch hẹn</div>
+    <div class="wf-phone-body">
+        <div class="mb-3">
+            <label class="form-label small" for="bk-specialty">Chuyên khoa</label>
+            <select class="form-select" id="bk-specialty">
+                <option selected>Nội tổng quát</option>
+                <option>Nhi khoa</option>
+                <option>Răng hàm mặt</option>
+                <option>Tai mũi họng</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label small" for="bk-doctor">Bác sĩ</label>
+            <select class="form-select" id="bk-doctor">
+                <option selected>BS. Nguyễn Văn Hoàng</option>
+                <option>BS. Trần Thu Hà</option>
+                <option>BS. Lê Quang Duy</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label small" for="bk-date">Ngày khám</label>
+            <input type="date" class="form-control" id="bk-date" />
+        </div>
+
+        <div class="mb-3">
+            <div class="form-label small">Khung giờ trống</div>
+            <div class="d-flex flex-wrap gap-2">
+                <span class="badge rounded-pill border text-dark bg-light p-2">8:00</span>
+                <span class="badge rounded-pill p-2 wf-slot-selected">9:00</span>
+                <span class="badge rounded-pill border text-dark bg-light p-2">10:00</span>
+                <span class="badge rounded-pill border text-dark bg-light p-2">11:00</span>
+                <span
+                class="badge rounded-pill border text-muted bg-light p-2 text-decoration-line-through">14:00</span>
+                <span class="badge rounded-pill border text-dark bg-light p-2">15:00</span>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-dark w-100 mb-4">Xác nhận đặt lịch</button>
+
+        <div class="fw-semibold mb-2">Lịch hẹn của tôi</div>
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="small fw-semibold">12/08/2026 · 09:00</div>
+                    <div class="text-muted small">BS. Nguyễn Văn Hoàng · Nội tổng quát</div>
+                </div>
+                <span class="badge bg-success-subtle text-success border border-success-subtle">Đã xác nhận</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="small fw-semibold">20/08/2026 · 15:30</div>
+                    <div class="text-muted small">BS. Trần Thu Hà · Tai mũi họng</div>
+                </div>
+                <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle">Chờ xác
+                    nhận</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="small fw-semibold">28/07/2026 · 08:30</div>
+                        <div class="text-muted small">BS. Lê Quang Duy · Nhi khoa</div>
+                    </div>
+                    <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle">Đã khám</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        // Khởi tạo dữ liệu màn hình (chưa hiện thực).
+    }
+
+    public void Dispose()
+    {
+        // Giải phóng tài nguyên của màn hình (chưa hiện thực).
+    }
+} *@

@@ -1,0 +1,346 @@
+@page "/patient/health-records"
+@implements IDisposable
+
+<PageTitle>Tra cứu y tế - QLPK</PageTitle>
+<MudStack Row="true" AlignItems="AlignItems.Center">
+    <MudChip T="string" Size="Size.Medium" Color="Color.Error">
+        3
+    </MudChip>
+
+    <MudText Typo="Typo.h4" Style="font-weight: 700">
+        Tra cứu y tế
+    </MudText>
+</MudStack>
+
+
+<MudText Typo="Typo.body2" Color="Color.Secondary" Class="mb-4">
+    Xem bệnh án · Xem đơn thuốc · Xem kết quả XN </MudText>
+
+    <MudPaper>
+
+        <!-- Header -->
+        <MudPaper Elevation="0" Square="true" Class="pa-3" Style="background-color:#f8f3f3;">
+
+            <MudText Typo="Typo.subtitle1">
+                App · Hồ sơ sức khỏe của tôi
+            </MudText>
+
+        </MudPaper>
+
+
+        <!-- Body -->
+        <MudCardContent Class="wf-phone-body">
+
+            <!-- ============================= -->
+            <!-- Tabs -->
+            <!-- ============================= -->
+
+            <MudTabs Rounded="true" Elevation="0" Class="mb-4">
+
+                <MudTabPanel Text="Bệnh án">
+
+                    <!-- Nội dung bệnh án -->
+
+                </MudTabPanel>
+
+                <MudTabPanel Text="Đơn thuốc">
+
+                    <!-- Nội dung đơn thuốc -->
+
+                </MudTabPanel>
+
+                <MudTabPanel Text="Kết quả">
+
+                    <!-- Nội dung kết quả xét nghiệm -->
+
+                </MudTabPanel>
+
+            </MudTabs>
+
+
+            <!-- ============================= -->
+            <!-- Chọn lượt khám -->
+            <!-- ============================= -->
+
+            <MudText Typo="Typo.body2" Class="fw-semibold mb-2">
+
+                Chọn lượt khám
+
+            </MudText>
+
+
+            <MudList T="string" Dense="true" DisableGutters="true" Class="mb-3">
+
+                <!-- Lượt khám 12/05 -->
+                <MudListItem>
+
+                    <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+
+                        <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Default">
+
+                            12/05
+
+                        </MudChip>
+
+                        <MudText Typo="Typo.body2">
+                            Viêm họng cấp · BS. Nguyễn Văn Hoàng
+                        </MudText>
+
+                    </MudStack>
+
+                </MudListItem>
+
+
+                <!-- Lượt khám 28/04 -->
+                <MudListItem>
+
+                    <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+
+                        <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Default">
+
+                            28/04
+
+                        </MudChip>
+
+                        <MudText Typo="Typo.body2">
+                            Viêm dạ dày · BS. Trần Thu Hà
+                        </MudText>
+
+                    </MudStack>
+
+                </MudListItem>
+
+            </MudList>
+
+
+            <!-- ============================= -->
+            <!-- Chi tiết lượt khám -->
+            <!-- ============================= -->
+
+            <MudPaper Outlined="true" Class="pa-3 mb-3">
+
+                <MudText Typo="Typo.subtitle2" Class="mb-3">
+
+                    Chi tiết lượt khám 12/05/2026
+
+                </MudText>
+
+
+                <MudGrid Spacing="1">
+
+                    <!-- Lý do khám -->
+                    <MudItem xs="5">
+
+                        <MudText Typo="Typo.body2" Color="Color.Secondary">
+
+                            Lý do khám
+
+                        </MudText>
+
+                    </MudItem>
+
+                    <MudItem xs="7">
+
+                        <MudText Typo="Typo.body2">
+                            Đau họng, sốt nhẹ
+                        </MudText>
+
+                    </MudItem>
+
+
+                    <!-- Chẩn đoán -->
+                    <MudItem xs="5">
+
+                        <MudText Typo="Typo.body2" Color="Color.Secondary">
+
+                            Chẩn đoán
+
+                        </MudText>
+
+                    </MudItem>
+
+                    <MudItem xs="7">
+
+                        <MudText Typo="Typo.body2">
+                            Viêm họng cấp
+                        </MudText>
+
+                    </MudItem>
+
+
+                    <!-- Kết luận -->
+                    <MudItem xs="5">
+
+                        <MudText Typo="Typo.body2" Color="Color.Secondary">
+
+                            Kết luận
+
+                        </MudText>
+
+                    </MudItem>
+
+                    <MudItem xs="7">
+
+                        <MudText Typo="Typo.body2">
+                            Điều trị ngoại trú, tái khám sau 7 ngày
+                        </MudText>
+
+                    </MudItem>
+
+
+                    <!-- Đơn thuốc -->
+                    <MudItem xs="5">
+
+                        <MudText Typo="Typo.body2" Color="Color.Secondary">
+
+                            Đơn thuốc
+
+                        </MudText>
+
+                    </MudItem>
+
+                    <MudItem xs="7">
+
+                        <MudText Typo="Typo.body2">
+                            Paracetamol 500mg · Alpha Choay
+                        </MudText>
+
+                    </MudItem>
+
+
+                    <!-- Kết quả XN -->
+                    <MudItem xs="5">
+
+                        <MudText Typo="Typo.body2" Color="Color.Secondary">
+
+                            Kết quả XN
+
+                        </MudText>
+
+                    </MudItem>
+
+                    <MudItem xs="7">
+
+                        <MudText Typo="Typo.body2">
+                            Công thức máu — trong giới hạn bình thường
+                        </MudText>
+
+                    </MudItem>
+
+                </MudGrid>
+
+            </MudPaper>
+
+
+            <!-- ============================= -->
+            <!-- Download / Share -->
+            <!-- ============================= -->
+
+            <MudStack Row="true" Justify="Justify.FlexEnd">
+
+                <MudButton Variant="Variant.Outlined" Color="Color.Dark">
+
+                    Tải về / Chia sẻ
+
+                </MudButton>
+
+            </MudStack>
+
+        </MudCardContent>
+
+    </MudPaper>
+
+@code {
+protected override void OnInitialized()
+    {
+        // Khởi tạo dữ liệu màn hình (chưa hiện thực).
+    }
+
+    public void Dispose()
+    {
+        // Giải phóng tài nguyên của màn hình (chưa hiện thực).
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* @page "/patient/health-records"
+@implements IDisposable
+
+<PageTitle>Tra cứu y tế - QLPK</PageTitle>
+
+<h1 class="h3 mb-1">Tra cứu y tế</h1>
+<p class="text-muted small mb-4">Xem bệnh án · Xem đơn thuốc · Xem kết quả XN</p>
+
+<div class="wf-phone">
+    <div class="wf-phone-header">App · Hồ sơ sức khỏe của tôi</div>
+    <div class="wf-phone-body">
+        <ul class="nav nav-pills nav-fill gap-2 mb-3">
+            <li class="nav-item"><a class="nav-link active" href="/patient/health-records">Bệnh án</a></li>
+            <li class="nav-item"><a class="nav-link border" href="/patient/health-records">Đơn thuốc</a></li>
+            <li class="nav-item"><a class="nav-link border" href="/patient/health-records">Kết quả</a></li>
+        </ul>
+
+        <div class="fw-semibold small mb-2">Chọn lượt khám</div>
+        <ul class="list-group mb-3">
+            <li class="list-group-item d-flex align-items-center gap-2">
+                <span class="badge bg-light text-dark border">12/05</span>
+                <span class="small">Viêm họng cấp · BS. Nguyễn Văn Hoàng</span>
+            </li>
+            <li class="list-group-item d-flex align-items-center gap-2">
+                <span class="badge bg-light text-dark border">28/04</span>
+                <span class="small">Viêm dạ dày · BS. Trần Thu Hà</span>
+            </li>
+        </ul>
+
+        <div class="border rounded p-3 mb-3">
+            <div class="fw-semibold mb-2">Chi tiết lượt khám 12/05/2026</div>
+            <dl class="row small mb-0">
+                <dt class="col-5 text-muted fw-normal">Lý do khám</dt>
+                <dd class="col-7">Đau họng, sốt nhẹ</dd>
+                <dt class="col-5 text-muted fw-normal">Chẩn đoán</dt>
+                <dd class="col-7">Viêm họng cấp</dd>
+                <dt class="col-5 text-muted fw-normal">Kết luận</dt>
+                <dd class="col-7">Điều trị ngoại trú, tái khám sau 7 ngày</dd>
+                <dt class="col-5 text-muted fw-normal">Đơn thuốc</dt>
+                <dd class="col-7">Paracetamol 500mg · Alpha Choay</dd>
+                <dt class="col-5 text-muted fw-normal">Kết quả XN</dt>
+                <dd class="col-7 mb-0">Công thức máu — trong giới hạn bình thường</dd>
+            </dl>
+        </div>
+
+        <div class="text-end">
+            <button type="button" class="btn btn-outline-dark">Tải về / Chia sẻ</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        // Khởi tạo dữ liệu màn hình (chưa hiện thực).
+    }
+
+    public void Dispose()
+    {
+        // Giải phóng tài nguyên của màn hình (chưa hiện thực).
+    }
+} *@

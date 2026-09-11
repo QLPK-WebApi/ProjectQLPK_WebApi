@@ -1,0 +1,312 @@
+@page "/patient/payments"
+@implements IDisposable
+
+<PageTitle>Thanh toán - QLPK</PageTitle>
+<MudStack Row="true">
+    <MudChip T="string" Color="Color.Error" Size="Size.Medium">
+        4
+    </MudChip>
+
+    <MudText Typo="Typo.h4" Class="mb-1" Style="font-weight: 700;">
+        Thanh toán
+    </MudText>
+</MudStack>
+
+
+<MudText Typo="Typo.body2" Color="Color.Secondary" Class="mb-4">
+    Xem hóa đơn · Thanh toán online
+</MudText>
+
+<MudPaper Class="wf-phone" Elevation="4">
+
+    <!-- Header -->
+    <MudPaper Class="pa-3" Elevation="0" Square="true" Style="background-color:#f8f3f3;">
+
+        <MudText Typo="Typo.subtitle1">
+            App · Hóa đơn &amp; thanh toán
+        </MudText>
+
+    </MudPaper>
+
+    <!-- Body -->
+    <div class="wf-phone-body pa-4">
+
+        <MudText Typo="Typo.body2" Class="fw-semibold mb-2">
+            Danh sách hóa đơn
+        </MudText>
+
+        <!-- Danh sách hóa đơn -->
+        <MudList T="string" Dense="true" DisableGutters="true" Class="mb-3">
+
+            <!-- Hóa đơn chưa thanh toán -->
+            <MudListItem>
+
+                <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center" Class="w-100">
+
+                    <div>
+                        <MudText Typo="Typo.body2" Class="fw-semibold">
+                            HD-0012 · 09/08/2026
+                        </MudText>
+
+                        <MudText Typo="Typo.body2" Color="Color.Secondary">
+                            850.000 đ
+                        </MudText>
+                    </div>
+
+                    <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Warning">
+                        Chưa TT
+                    </MudChip>
+
+                </MudStack>
+
+            </MudListItem>
+
+            <!-- Hóa đơn đã thanh toán -->
+            <MudListItem>
+
+                <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center" Class="w-100">
+
+                    <div>
+                        <MudText Typo="Typo.body2" Class="fw-semibold">
+                            HD-0009 · 12/05/2026
+                        </MudText>
+
+                        <MudText Typo="Typo.body2" Color="Color.Secondary">
+                            420.000 đ
+                        </MudText>
+                    </div>
+
+                    <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Color="Color.Success">
+                        Đã TT
+                    </MudChip>
+
+                </MudStack>
+
+            </MudListItem>
+
+        </MudList>
+
+        <!-- Chi tiết hóa đơn -->
+        <MudPaper Outlined="true" Class="pa-3 mb-3">
+
+            <MudText Typo="Typo.subtitle2" Class="mb-2" Align="Align.Center" Style="font-weight: 600; ">
+                Chi tiết hóa đơn HD-0012
+            </MudText>
+
+            <MudDivider />
+
+            <MudGrid Spacing="1" >
+
+                <MudItem xs="8" >
+                    <MudText Typo="Typo.body2" Class="mt-1">
+                        Khám nội tổng quát
+                    </MudText>
+                </MudItem>
+                <MudItem xs="4" Class="text-end">
+                    <MudText Typo="Typo.body2">
+                        300.000 đ
+                    </MudText>
+                </MudItem>
+
+                <MudItem xs="8">
+                    <MudText Typo="Typo.body2">
+                        Công thức máu
+                    </MudText>
+                </MudItem>
+                <MudItem xs="4" Class="text-end">
+                    <MudText Typo="Typo.body2">
+                        180.000 đ
+                    </MudText>
+                </MudItem>
+
+                <MudItem xs="8">
+                    <MudText Typo="Typo.body2">
+                        Đường huyết lúc đói
+                    </MudText>
+                </MudItem>
+                <MudItem xs="4" Class="text-end">
+                    <MudText Typo="Typo.body2">
+                        120.000 đ
+                    </MudText>
+                </MudItem>
+
+                <MudItem xs="8">
+                    <MudText Typo="Typo.body2">
+                        Thuốc theo đơn
+                    </MudText>
+                </MudItem>
+                <MudItem xs="4" Class="text-end">
+                    <MudText Typo="Typo.body2">
+                        250.000 đ
+                    </MudText>
+                </MudItem>
+
+            </MudGrid>
+
+            <MudDivider Class="my-2" />
+
+            <MudStack Row="true" Justify="Justify.SpaceBetween">
+
+                <MudText Typo="Typo.body2" Class="fw-semibold">
+                    Tổng tiền
+                </MudText>
+
+                <MudText Typo="Typo.body2" Class="fw-semibold">
+                    850.000 đ
+                </MudText>
+
+            </MudStack>
+
+        </MudPaper>
+
+        <!-- Phương thức thanh toán -->
+        <MudText Typo="Typo.body2" Class="fw-semibold mb-2">
+            Phương thức thanh toán
+        </MudText>
+
+        <MudGrid Spacing="1" Class="mb-3">
+
+            <MudItem xs="4">
+                <MudButton Variant="Variant.Outlined" Color="Color.Default" Class="w-100 payment-method-btn">
+                    Thẻ
+                </MudButton>
+            </MudItem>
+
+            <MudItem xs="4">
+                <MudButton Variant="Variant.Outlined" Color="Color.Default" Class="w-100 payment-method-btn">
+                    Ví
+                </MudButton>
+            </MudItem>
+
+            <MudItem xs="4">
+                <MudButton Variant="Variant.Outlined" Color="Color.Default" Class="w-100 payment-method-btn">
+                    QR
+                </MudButton>
+            </MudItem>
+
+        </MudGrid>
+
+        <!-- Thanh toán -->
+        <MudButton Variant="Variant.Filled" Color="Color.Dark" Size="Size.Large" Class="w-100">
+            Thanh toán online
+        </MudButton>
+
+        <MudText Typo="Typo.body2" Color="Color.Secondary" Class="mt-3">
+            Thao tác nhập thông tin thẻ / thanh toán do người dùng tự thực hiện trên cổng thanh toán.
+        </MudText>
+
+    </div>
+
+</MudPaper>
+
+@code {
+    protected override void OnInitialized()
+    {
+        // Khởi tạo dữ liệu màn hình (chưa hiện thực).
+    }
+
+    public void Dispose()
+    {
+        // Giải phóng tài nguyên của màn hình (chưa hiện thực).
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* @page "/patient/payments"
+@implements IDisposable
+
+<PageTitle>Thanh toán - QLPK</PageTitle>
+
+<h1 class="h3 mb-1">Thanh toán</h1>
+<p class="text-muted small mb-4">Xem hóa đơn · Thanh toán online</p>
+
+<div class="wf-phone">
+    <div class="wf-phone-header">App · Hóa đơn &amp; thanh toán</div>
+    <div class="wf-phone-body">
+        <div class="fw-semibold small mb-2">Danh sách hóa đơn</div>
+        <ul class="list-group mb-3">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="small fw-semibold">HD-0012 · 09/08/2026</div>
+                    <div class="text-muted small">850.000 đ</div>
+                </div>
+                <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle">Chưa TT</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div>
+                    <div class="small fw-semibold">HD-0009 · 12/05/2026</div>
+                    <div class="text-muted small">420.000 đ</div>
+                </div>
+                <span class="badge bg-success-subtle text-success border border-success-subtle">Đã TT</span>
+            </li>
+        </ul>
+
+        <div class="border rounded p-3 mb-3">
+            <div class="fw-semibold mb-2">Chi tiết hóa đơn HD-0012</div>
+            <table class="table table-sm small mb-2">
+                <tbody>
+                    <tr>
+                        <td>Khám nội tổng quát</td>
+                        <td class="text-end">300.000 đ</td>
+                    </tr>
+                    <tr>
+                        <td>Công thức máu</td>
+                        <td class="text-end">180.000 đ</td>
+                    </tr>
+                    <tr>
+                        <td>Đường huyết lúc đói</td>
+                        <td class="text-end">120.000 đ</td>
+                    </tr>
+                    <tr>
+                        <td>Thuốc theo đơn</td>
+                        <td class="text-end">250.000 đ</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-between fw-semibold border-top pt-2">
+                <span>Tổng tiền</span>
+                <span>850.000 đ</span>
+            </div>
+        </div>
+
+        <div class="fw-semibold small mb-2">Phương thức thanh toán</div>
+        <div class="d-flex gap-2 mb-3">
+            <span class="badge rounded-pill border text-dark bg-light p-2 flex-fill text-center">Thẻ</span>
+            <span class="badge rounded-pill p-2 flex-fill text-center wf-slot-selected">Ví</span>
+            <span class="badge rounded-pill border text-dark bg-light p-2 flex-fill text-center">QR</span>
+        </div>
+
+        <button type="button" class="btn btn-dark w-100">Thanh toán online</button>
+        <p class="text-muted small mt-3 mb-0">
+            Thao tác nhập thông tin thẻ / thanh toán do người dùng tự thực hiện trên cổng thanh toán.
+        </p>
+    </div>
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        // Khởi tạo dữ liệu màn hình (chưa hiện thực).
+    }
+
+    public void Dispose()
+    {
+        // Giải phóng tài nguyên của màn hình (chưa hiện thực).
+    }
+} *@

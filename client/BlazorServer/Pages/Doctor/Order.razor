@@ -1,0 +1,308 @@
+@page "/doctor/orders"
+@implements IDisposable
+
+<PageTitle>Chỉ định & kết quả - QLPK</PageTitle>
+
+<!-- Tiêu đề -->
+<MudStack Row="true" AlignItems="AlignItems.Center">
+    <MudChip T="string" Color="Color.Tertiary">
+        4
+    </MudChip>
+    <MudText Typo="Typo.h4" Style="font-weight: 700;">
+        Chỉ định & kết quả
+    </MudText>
+    
+</MudStack>
+
+<MudText Typo="Typo.body2" Color="Color.Secondary">
+    Chỉ định dịch vụ/XN · Nhập kết quả · Đánh dấu bất thường
+</MudText>
+
+<MudGrid Spacing="3">
+
+    <!-- ==================== -->
+    <!-- DỊCH VỤ / XÉT NGHIỆM -->
+    <!-- ==================== -->
+
+    <MudItem xs="12" lg="4">
+
+        <MudPaper Elevation="1" Class="pa-4 h-100">
+
+            <MudText Typo="Typo.subtitle1" Style="font-weight: 600;" Class="mb-3">
+                Dịch vụ / xét nghiệm
+            </MudText>
+
+            <MudDivider Class="mb-3" />
+
+            <MudStack Spacing="1">
+
+                <MudCheckBox T="bool" @bind-Value="Services[0].Selected" Label="Công thức máu" Color="Color.Primary" />
+
+                <MudCheckBox T="bool" @bind-Value="Services[1].Selected" Label="Đường huyết lúc đói"
+                             Color="Color.Primary" />
+
+                <MudCheckBox T="bool" @bind-Value="Services[2].Selected" Label="X-quang ngực thẳng"
+                             Color="Color.Primary" />
+
+                <MudCheckBox T="bool" @bind-Value="Services[3].Selected" Label="Siêu âm ổ bụng" Color="Color.Primary" />
+
+                <MudCheckBox T="bool" @bind-Value="Services[4].Selected" Label="Điện tim (ECG)" Color="Color.Primary" />
+
+            </MudStack>
+
+            <MudSpacer />
+
+            <MudButton Variant="Variant.Filled" Color="Color.Dark" FullWidth="true"
+                       StartIcon="@Icons.Material.Filled.Send" OnClick="SendOrders" Class="mt-4">
+                Gửi chỉ định
+            </MudButton>
+
+        </MudPaper>
+
+    </MudItem>
+
+
+    <!-- ================= -->
+    <!-- NHẬP KẾT QUẢ -->
+    <!-- ================= -->
+
+    <MudItem xs="12" lg="8">
+
+        <MudPaper Elevation="1" Class="h-100">
+
+            <div class="pa-4">
+
+                <MudText Typo="Typo.subtitle1" Style="font-weight: 600;">
+                    Nhập kết quả
+                </MudText>
+
+            </div>
+
+            <MudDivider />
+
+            <MudTable Items="@Results" Hover="true" Dense="true" Striped="true">
+
+                <HeaderContent>
+
+                    <MudTh>
+                        Chỉ số
+                    </MudTh>
+
+                    <MudTh Style="width: 180px;">
+                        Giá trị
+                    </MudTh>
+
+                    <MudTh Style="width: 160px;">
+                        Tham chiếu
+                    </MudTh>
+
+                    <MudTh Style="width: 120px; text-align: center;">
+                        Bất thường
+                    </MudTh>
+
+                </HeaderContent>
+
+                <RowTemplate>
+
+                    <MudTd DataLabel="Chỉ số">
+
+                        <MudText Typo="Typo.body2" Style="font-weight: 500;">
+                            @context.Name
+                        </MudText>
+
+                    </MudTd>
+
+
+                    <MudTd DataLabel="Giá trị">
+
+                        <MudTextField T="string" @bind-Value="context.Value" Variant="Variant.Outlined"
+                                      Margin="Margin.Dense" FullWidth="true"
+                                      Class="@(context.IsAbnormal ? "result-abnormal" : "")" />
+
+                    </MudTd>
+
+
+                    <MudTd DataLabel="Tham chiếu">
+
+                        <MudText Typo="Typo.body2" Color="Color.Secondary">
+                            @context.Reference
+                        </MudText>
+
+                    </MudTd>
+
+
+                    <MudTd DataLabel="Bất thường">
+
+                        <MudStack Row="true" Justify="Justify.Center">
+
+                            <MudCheckBox T="bool" @bind-Value="context.IsAbnormal" Color="Color.Error" />
+
+                        </MudStack>
+
+                    </MudTd>
+
+                </RowTemplate>
+
+                <NoRecordsContent>
+
+                    <MudText Class="pa-4" Color="Color.Secondary">
+                        Chưa có kết quả xét nghiệm.
+                    </MudText>
+
+                </NoRecordsContent>
+
+            </MudTable>
+
+
+            <MudDivider />
+
+
+            <!-- Footer -->
+
+            <MudStack Row="true" Justify="Justify.FlexEnd" Class="pa-4">
+
+                <MudButton Variant="Variant.Filled" Color="Color.Dark" StartIcon="@Icons.Material.Filled.Save"
+                           OnClick="SaveResults">
+                    Lưu kết quả
+                </MudButton>
+
+            </MudStack>
+
+        </MudPaper>
+
+    </MudItem>
+
+</MudGrid>
+
+
+@code {
+
+    // =========================
+    // Dịch vụ / xét nghiệm
+    // =========================
+
+    private List<ServiceItem> Services = new()
+    {
+        new ServiceItem
+        {
+            Name = "Công thức máu",
+            Selected = true
+        },
+
+        new ServiceItem
+        {
+            Name = "Đường huyết lúc đói",
+            Selected = true
+        },
+
+        new ServiceItem
+        {
+            Name = "X-quang ngực thẳng",
+            Selected = false
+        },
+
+        new ServiceItem
+        {
+            Name = "Siêu âm ổ bụng",
+            Selected = false
+        },
+
+        new ServiceItem
+        {
+            Name = "Điện tim (ECG)",
+            Selected = false
+        }
+    };
+
+
+    // =========================
+    // Kết quả xét nghiệm
+    // =========================
+
+    private List<ResultItem> Results = new()
+    {
+        new ResultItem
+        {
+            Name = "Hồng cầu (RBC)",
+            Value = "4.6 T/L",
+            Reference = "4.2 – 5.4 T/L",
+            IsAbnormal = false
+        },
+
+        new ResultItem
+        {
+            Name = "Bạch cầu (WBC)",
+            Value = "7.1 G/L",
+            Reference = "4.0 – 10.0 G/L",
+            IsAbnormal = false
+        },
+
+        new ResultItem
+        {
+            Name = "Đường huyết lúc đói",
+            Value = "7.8 mmol/L",
+            Reference = "3.9 – 6.4 mmol/L",
+            IsAbnormal = true
+        },
+
+        new ResultItem
+        {
+            Name = "Tiểu cầu (PLT)",
+            Value = "240 G/L",
+            Reference = "150 – 400 G/L",
+            IsAbnormal = false
+        }
+    };
+
+
+    protected override void OnInitialized()
+    {
+        // Khởi tạo dữ liệu màn hình
+    }
+
+
+    private void SendOrders()
+    {
+        var selectedServices = Services
+            .Where(x => x.Selected)
+            .ToList();
+
+        // Gửi chỉ định lên API
+    }
+
+
+    private void SaveResults()
+    {
+        // Lưu kết quả xét nghiệm
+    }
+
+
+    public void Dispose()
+    {
+        // Giải phóng tài nguyên nếu có
+    }
+
+
+    // =========================
+    // Models
+    // =========================
+
+    public class ServiceItem
+    {
+        public string Name { get; set; } = string.Empty;
+
+        public bool Selected { get; set; }
+    }
+
+
+    public class ResultItem
+    {
+        public string Name { get; set; } = string.Empty;
+
+        public string Value { get; set; } = string.Empty;
+
+        public string Reference { get; set; } = string.Empty;
+
+        public bool IsAbnormal { get; set; }
+    }
+}

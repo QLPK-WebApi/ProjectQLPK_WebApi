@@ -91,7 +91,7 @@ h1:focus {
 
 
 
-/*--- Biểu đồ cột cho màn hình báo cáo ---*/
+/*--- Biểu đồ cột cho màn hình báo cáo ---
 .wf-chart {
     display: flex;
     align-items: flex-end;
@@ -114,6 +114,14 @@ h1:focus {
     text-align: center;
     font-size: 0.75rem;
     color: #6c757d;
+} */
+
+
+
+
+.payment-method-btn:hover {
+font-weight: 700;
+background-color: #252121;
+border-color: #333;
+color: #f1ecec;
 }
-
-

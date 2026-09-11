@@ -1,0 +1,232 @@
+@page "/patient/account"
+@implements IDisposable
+
+<PageTitle>Tài khoản & hồ sơ - QLPK</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.Large" Class="py-4">
+    <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+        <MudChip T="string" Color="Color.Error" Size="Size.Medium">1</MudChip>
+
+        <MudText Typo="Typo.h4" Style="font-weight: 700;" Class="mb-1">
+            Tài khoản &amp; hồ sơ
+        </MudText>
+    </MudStack>
+    
+
+    <MudText Typo="Typo.body2" Color="Color.Secondary"  Class="mb-4" >
+        Đăng ký tài khoản · Đăng nhập · Cập nhật hồ sơ
+    </MudText>
+
+    <MudPaper MaxWidth="MaxWidth.Small" Class="mx-auto" Elevation="4">
+
+        <!-- Header -->
+        <MudPaper Class="pa-3" Square="true" Elevation="0" Style="background-color:#f8f3f3;">
+            <MudText Typo="Typo.subtitle1">
+                App · Đăng ký / Hồ sơ
+            </MudText>
+        </MudPaper>
+
+        <MudCardContent Class="pa-4">
+
+            <!-- Đăng ký / Đăng nhập -->
+            <MudTabs Rounded="true" Elevation="0" Class="mb-4">
+
+                <MudTabPanel Text="Đăng ký">
+                    <MudStack Spacing="3">
+
+                        <!-- Họ và tên -->
+                        <MudTextField T="string" Label="Họ và tên" Placeholder="Nguyễn Thị Lan"
+                                      Variant="Variant.Outlined" Margin="Margin.Dense" FullWidth="true" />
+
+                        <!-- Số điện thoại -->
+                        <MudTextField T="string" Label="Số điện thoại" Placeholder="09xx xxx xxx"
+                                      Variant="Variant.Outlined" Margin="Margin.Dense" InputType="InputType.Telephone"
+                                      FullWidth="true" />
+
+                        <!-- Mật khẩu -->
+                        <MudTextField T="string" Label="Mật khẩu" Placeholder="••••••••" Variant="Variant.Outlined"
+                                      Margin="Margin.Dense" InputType="InputType.Password" FullWidth="true" />
+
+                        <!-- OTP -->
+                        <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="1">
+
+                            <MudTextField T="string" Label="Mã xác thực OTP" Placeholder="6 chữ số"
+                                          Variant="Variant.Outlined" Margin="Margin.Dense" FullWidth="true" />
+
+                            <MudButton Variant="Variant.Outlined" Color="Color.Default"
+                                       Style="height:40px; min-width:100px;">
+                                Gửi OTP
+                            </MudButton>
+
+                        </MudStack>
+
+                        <!-- Submit -->
+                        <MudButton Variant="Variant.Filled" Color="Color.Dark" FullWidth="true" Size="Size.Large"
+                                   Class="mt-2">
+                            Đăng ký 
+                        </MudButton>
+
+                    </MudStack>
+                </MudTabPanel>
+
+                <MudTabPanel Text="Đăng nhập">
+                    <MudStack Spacing="3">
+
+                        <MudTextField T="string" Label="Số điện thoại" Placeholder="09xx xxx xxx"
+                                      Variant="Variant.Outlined" Margin="Margin.Dense" InputType="InputType.Telephone"
+                                      FullWidth="true" />
+
+                        <MudTextField T="string" Label="Mật khẩu" Placeholder="••••••••" Variant="Variant.Outlined"
+                                      Margin="Margin.Dense" InputType="InputType.Password" FullWidth="true" />
+
+                        <MudButton Variant="Variant.Filled" Color="Color.Dark" FullWidth="true" Size="Size.Large">
+                            Đăng nhập
+                        </MudButton>
+
+                    </MudStack>
+                </MudTabPanel>
+
+            </MudTabs>
+
+            <!-- Hồ sơ bệnh nhân -->
+            <MudPaper Outlined="true" Class="pa-4">
+
+                <!-- Patient header -->
+                <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2" Class="mb-4">
+
+                    <MudAvatar Size="Size.Medium" Color="Color.Default">
+                        <MudIcon Icon="@Icons.Material.Filled.Person" />
+                    </MudAvatar>
+
+                    <div>
+                        <MudText Typo="Typo.subtitle1" Class="font-weight-medium">
+                            Nguyễn Thị Lan
+                        </MudText>
+
+                        <MudText Typo="Typo.body2" Color="Color.Secondary">
+                            BN-00124 · Nữ · 34 tuổi
+                        </MudText>
+                    </div>
+
+                </MudStack>
+
+                <MudStack Spacing="3">
+
+                    <!-- Địa chỉ -->
+                    <MudTextField T="string" Label="Địa chỉ liên hệ" Placeholder="Số nhà, đường, quận, thành phố"
+                                  Variant="Variant.Outlined" Margin="Margin.Dense" FullWidth="true" />
+
+                    <!-- Email -->
+                    <MudTextField T="string" Label="Email" Placeholder="email liên hệ" Variant="Variant.Outlined"
+                                  Margin="Margin.Dense" InputType="InputType.Email" FullWidth="true" />
+
+                    <!-- Save -->
+                    <MudButton Variant="Variant.Filled" Color="Color.Dark" FullWidth="true" Size="Size.Large">
+                        Lưu hồ sơ
+                    </MudButton>
+
+                </MudStack>
+
+            </MudPaper>
+
+        </MudCardContent>
+
+    </MudPaper>
+
+</MudContainer>
+
+@code {
+    protected override void OnInitialized()
+    {
+        // Khởi tạo dữ liệu màn hình.
+    }
+
+public void Dispose()
+    {
+        // Giải phóng tài nguyên của màn hình.
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@* @page "/patient/account"
+@implements IDisposable
+
+<PageTitle>Tài khoản & hồ sơ - QLPK</PageTitle>
+
+<h1 class="h3 mb-1">Tài khoản &amp; hồ sơ</h1>
+<p class="text-muted small mb-4">Đăng ký tài khoản · Đăng nhập · Cập nhật hồ sơ</p>
+
+<div class="wf-phone">
+    <div class="wf-phone-header">App · Đăng ký / Hồ sơ</div>
+    <div class="wf-phone-body">
+        <ul class="nav nav-pills nav-fill gap-2 mb-3">
+            <li class="nav-item"><a class="nav-link active" href="/patient/account">Đăng ký</a></li>
+            <li class="nav-item"><a class="nav-link border" href="/patient/account">Đăng nhập</a></li>
+        </ul>
+
+        <div class="mb-3">
+            <label class="form-label small" for="acc-name">Họ và tên</label>
+            <input type="text" class="form-control" id="acc-name" placeholder="Nguyễn Thị Lan" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label small" for="acc-phone">Số điện thoại</label>
+            <input type="tel" class="form-control" id="acc-phone" placeholder="09xx xxx xxx" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label small" for="acc-password">Mật khẩu</label>
+            <input type="password" class="form-control" id="acc-password" placeholder="••••••••" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label small" for="acc-otp">Mã xác thực OTP</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="acc-otp" placeholder="6 chữ số" />
+                <button type="button" class="btn btn-outline-secondary">Gửi OTP</button>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-dark w-100 mb-4">Đăng ký / Đăng nhập</button>
+
+        <div class="border rounded p-3">
+            <div class="d-flex align-items-center gap-3 mb-3">
+                <div class="wf-avatar wf-avatar-sm"></div>
+                <div>
+                    <div class="fw-semibold">Nguyễn Thị Lan</div>
+                    <div class="text-muted small">BN-00124 · Nữ · 34 tuổi</div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label small" for="acc-address">Địa chỉ liên hệ</label>
+                <input type="text" class="form-control" id="acc-address" placeholder="Số nhà, đường, quận, thành phố" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label small" for="acc-email">Email</label>
+                <input type="email" class="form-control" id="acc-email" placeholder="email liên hệ" />
+            </div>
+            <button type="button" class="btn btn-dark w-100">Lưu hồ sơ</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        // Khởi tạo dữ liệu màn hình (chưa hiện thực).
+    }
+
+    public void Dispose()
+    {
+        // Giải phóng tài nguyên của màn hình (chưa hiện thực).
+    }
+} *@

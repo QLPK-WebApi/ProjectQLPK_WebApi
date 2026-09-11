@@ -5,25 +5,26 @@ using MudBlazor;
 
 namespace BlazorServer.Pages.Appointments;
 
+
 public partial class AppointmentCreateDialog
 {
     [Inject] private AppointmentApiClient Api { get; set; } = default!;
 
-    private MudDialog _dialogRef = default!;
+    private  MudDialog _dialogRef = default!;
     private readonly CreateAppointmentModel _model = new();
     private readonly DialogOptions _dialogOptions = new()
     {
-        BackdropClick = false,
-        CloseOnEscapeKey = false,
-        MaxWidth = MaxWidth.Small,
-        FullWidth = true
+        BackdropClick = false, // không cho đóng dialog khi click ngoài form
+        CloseOnEscapeKey = false, // không cho đóng dialog khi nhấn Esc
+        MaxWidth = MaxWidth.Small, // Kích thước dialog ở mức nhỏ-vừa
+        FullWidth = true // sử dụng chiều rộng không vượt quá Small
     };
-
-    [Parameter] public EventCallback OnSaved { get; set; }
-    [Parameter] public EventCallback OnCancel { get; set; }
 
     private string? _error;
     private bool _saving;
+
+    [Parameter] public EventCallback OnSaved { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
     private async Task SaveAsync()
     {
         _error = null;
@@ -47,3 +48,5 @@ public partial class AppointmentCreateDialog
         await OnCancel.InvokeAsync();
     }
 }
+
+

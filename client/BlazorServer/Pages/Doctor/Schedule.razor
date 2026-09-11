@@ -1,0 +1,348 @@
+@page "/doctor/schedule"
+@implements IDisposable
+
+<PageTitle>Lịch làm việc & hàng đợi - QLPK</PageTitle>
+
+<MudStack Row="true" AlignItems="AlignItems.Center">
+    <MudChip T="string" Color="Color.Tertiary" Size="Size.Medium">
+        1
+    </MudChip>
+    <MudText Typo="Typo.h4" Class="mb-1" Style="font-weight: 700;">
+        Quản lý lịch hẹn
+    </MudText>
+</MudStack>
+
+
+<MudText Typo="Typo.body2" Color="Color.Secondary"  Class="mb-4" >
+    Xem lịch làm việc · Tiếp nhận / hoàn tất · Hủy lịch hẹn
+</MudText>
+
+<!-- Tabs -->
+<MudTabs Rounded="true" Border="true" Elevation="0" Class="mb-4">
+
+    <MudTabPanel Text="Hôm nay" >
+        <!-- Nội dung hôm nay --> 
+    </MudTabPanel>
+
+    <MudTabPanel Text="Tuần">
+        <!-- Có thể hiển thị lịch tuần riêng ở đây -->
+    </MudTabPanel>
+
+</MudTabs>
+
+<MudGrid Spacing="5">
+
+            <!-- ========================= -->
+                <!-- HÀNG ĐỢI HÔM NAY -->
+            <!-- ========================= -->
+    <MudItem xs="12" lg="6">
+
+        <MudPaper Elevation="4" Class="h-100">
+
+            <MudText Typo="Typo.body1" Class="pa-2 text-center" Style="font-weight: 700">
+                Hàng đợi hôm nay — 09/08/2026
+            </MudText>
+
+            <MudDivider />
+
+            <MudList T="string" Dense="true">
+
+                <!-- Nguyễn Thị Lan -->
+                <MudListItem>
+                    <div class="d-flex align-center justify-content-between w-100">
+
+                        <div class="d-flex align-center">
+                            <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Class="me-2">
+                                08:30
+                            </MudChip>
+
+                            <MudText Typo="Typo.body2">
+                                Nguyễn Thị Lan
+                            </MudText>
+
+                            <MudText Typo="Typo.caption" Color="Color.Secondary" Class="ms-2">
+                                Đau đầu, chóng mặt
+                            </MudText>
+                        </div>
+
+                        <MudButton Variant="Variant.Filled" Color="Color.Dark" Size="Size.Small">
+                            Tiếp nhận
+                        </MudButton>
+
+                    </div>
+                </MudListItem>
+
+                <MudDivider />
+
+                <!-- Trần Văn Bình -->
+                <MudListItem>
+                    <div class="d-flex align-center justify-content-between ">
+
+                        <div class="d-flex align-center">
+                            <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Class="me-2">
+                                09:00
+                            </MudChip>
+
+                            <MudText Typo="Typo.body2" Class="font-weight-bold">
+                                Trần Văn Bình
+                            </MudText>
+
+                            <MudText Typo="Typo.caption" Color="Color.Secondary" Class="ms-2">
+                                Tái khám huyết áp
+                            </MudText>
+                        </div>
+
+                        <MudButton Variant="Variant.Outlined" Color="Color.Secondary" Size="Size.Small">
+                            Chờ
+                        </MudButton>
+
+                    </div>
+                </MudListItem>
+
+                <MudDivider />
+
+                <!-- Lê Minh Châu -->
+                <MudListItem>
+                    <div class="d-flex align-center justify-content-between w-100">
+
+                        <div class="d-flex align-center">
+                            <MudChip T="string" Size="Size.Small" Variant="Variant.Outlined" Class="me-2">
+                                09:30
+                            </MudChip>
+
+                            <MudText Typo="Typo.body2" Class="font-weight-bold">
+                                Lê Minh Châu
+                            </MudText>
+
+                            <MudText Typo="Typo.caption" Color="Color.Secondary" Class="ms-2">
+                                Ho, sốt nhẹ
+                            </MudText>
+                        </div>
+
+                        <MudButton Variant="Variant.Outlined" Color="Color.Error" Size="Size.Small">
+                            Hủy
+                        </MudButton>
+
+                    </div>
+                </MudListItem>
+
+                <MudDivider />
+
+                <!-- Phạm Quốc Anh -->
+                <MudListItem>
+                    <div class="d-flex align-center justify-content-between w-100">
+
+                        <div class="d-flex align-center">
+
+                            <MudChip T="string" Size="Size.Small" Color="Color.Success" Variant="Variant.Outlined"
+                                     Class="me-2">
+                                Xong
+                            </MudChip>
+
+                            <MudText Typo="Typo.body2" Class="font-weight-bold">
+                                Phạm Quốc Anh
+                            </MudText>
+
+                            <MudText Typo="Typo.caption" Color="Color.Secondary" Class="ms-2">
+                                Khám tổng quát
+                            </MudText>
+
+                        </div>
+
+                        <MudButton Variant="Variant.Filled" Color="Color.Info" Size="Size.Small">
+                            Hoàn tất
+                        </MudButton>
+                    </div>
+                </MudListItem>
+                
+            </MudList>
+
+        </MudPaper>
+
+    </MudItem>
+
+
+            <!-- ========================= -->
+            <!-- LỊCH LÀM VIỆC TRONG TUẦN -->
+            <!-- ========================= -->
+    <MudItem xs="12" lg="6">
+
+        <MudPaper Elevation="4" Class="h-100">
+
+            <MudText Typo="Typo.subtitle1" Class="pa-2  text-center" Style="font-weight: 700">
+                Lịch làm việc trong tuần
+            </MudText>
+
+            <MudDivider />
+
+            <MudTable Items="@ScheduleItems" Dense="true" Hover="true" Bordered="true" Striped="false" Elevation="0" Class="ma-4">
+
+                <HeaderContent>
+
+                    <MudTh Style="width:80px" >
+                        Giờ
+                    </MudTh>
+
+                    <MudTh Class="text-center">T2</MudTh>
+                    <MudTh Class="text-center">T3</MudTh>
+                    <MudTh Class="text-center">T4</MudTh>
+                    <MudTh Class="text-center">T5</MudTh>
+                    <MudTh Class="text-center">T6</MudTh>
+
+                </HeaderContent>
+
+                <RowTemplate>
+
+                    <MudTd DataLabel="Giờ">
+                        <MudText Typo="Typo.caption" Color="Color.Default">
+                            @context.Time
+                        </MudText>
+                    </MudTd>
+
+                    <MudTd DataLabel="T2">
+                        @if (!string.IsNullOrEmpty(context.Mon))
+                        {
+                            
+                                @RenderShift(context.Mon)
+                            
+                        }
+                    </MudTd>
+
+                    <MudTd DataLabel="T3">
+                        @if (!string.IsNullOrEmpty(context.Tue))
+                        {
+                            
+                                @RenderShift(context.Tue)
+                            
+                        }
+                    </MudTd>
+
+                    <MudTd DataLabel="T4">
+                        @if (!string.IsNullOrEmpty(context.Wed))
+                        {
+                            
+                                @RenderShift(context.Wed)
+                            
+                        }
+                    </MudTd>
+
+                    <MudTd DataLabel="T5">
+                        @if (!string.IsNullOrEmpty(context.Thu))
+                        {
+                            
+                                @RenderShift(context.Thu)
+                            
+                        }
+                    </MudTd>
+
+                    <MudTd DataLabel="T6">
+                        @if (!string.IsNullOrEmpty(context.Fri))
+                        {
+                            
+                                @RenderShift(context.Fri)
+                            
+                        }
+                    </MudTd>
+
+                </RowTemplate>
+
+            </MudTable>
+
+        </MudPaper>
+
+    </MudItem>
+
+</MudGrid>
+
+
+@code {
+
+    private List<ScheduleItem> ScheduleItems = new()
+    {
+        new ScheduleItem
+        {
+            Time = "08:00",
+            Mon = "Ca sáng",
+            Tue = "Ca sáng",
+            Wed = "",
+            Thu = "Ca sáng",
+            Fri = "Ca sáng"
+        },
+
+        new ScheduleItem
+        {
+            Time = "10:00",
+            Mon = "Ca sáng",
+            Tue = "",
+            Wed = "Ca sáng",
+            Thu = "Ca sáng",
+            Fri = ""
+        },
+
+        new ScheduleItem
+        {
+            Time = "13:30",
+            Mon = "",
+            Tue = "Ca chiều",
+            Wed = "Ca chiều",
+            Thu = "",
+            Fri = "Ca chiều"
+        },
+
+        new ScheduleItem
+        {
+            Time = "15:30",
+            Mon = "Ca chiều",
+            Tue = "Ca chiều",
+            Wed = "",
+            Thu = "Ca chiều",
+            Fri = ""
+        }
+    };
+
+    private class ScheduleItem
+    {
+        public string Time { get; set; } = "";
+        public string Mon { get; set; } = "";
+        public string Tue { get; set; } = "";
+        public string Wed { get; set; } = "";
+        public string Thu { get; set; } = "";
+        public string Fri { get; set; } = "";
+    }
+
+    protected override void OnInitialized()
+    {
+        // Khởi tạo dữ liệu màn hình
+    }
+
+    public void Dispose()
+    {
+        // Giải phóng tài nguyên
+    }
+
+
+    private RenderFragment RenderShift(string shift) => builder =>
+    {
+        if (string.IsNullOrEmpty(shift))
+            return;
+
+        if (shift == "Ca sáng")
+        {
+            builder.OpenComponent<MudChip<string>>(0);
+            builder.AddAttribute(1, "Color", Color.Info);
+            builder.AddAttribute(2, "Size", Size.Small);
+            builder.AddAttribute(3, "Text", "Ca sáng");
+            builder.CloseComponent();
+        }
+
+        else if (shift == "Ca chiều")
+        {
+            builder.OpenComponent<MudChip<string>>(0);
+            builder.AddAttribute(1, "Color", Color.Warning);
+            builder.AddAttribute(2, "Size", Size.Small);
+            builder.AddAttribute(3, "Text", "Ca chiều");
+            builder.CloseComponent();
+        }
+    };
+}
+

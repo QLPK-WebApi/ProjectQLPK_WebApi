@@ -1,5 +1,330 @@
 @page "/admin/reports"
 
+<PageTitle>Báo cáo & thống kê - QLPK</PageTitle>
+
+<MudStack Spacing="2">
+
+    <!-- ==================== TIÊU ĐỀ ==================== -->
+    <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+
+        <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+
+            <MudChip T="string" Color="Color.Primary" Size="Size.Medium">
+                4
+            </MudChip>
+
+            <MudText Typo="Typo.h4" Style="font-weight: 700;">
+                Báo cáo & thống kê
+            </MudText>
+
+        </MudStack>
+
+
+        <!-- Bộ lọc -->
+        <MudStack Row="true" Spacing="1">
+
+            <MudSelect T="string" @bind-Value="_period" Variant="Variant.Outlined" Margin="Margin.Dense"
+                       Style="width: 140px;">
+
+                <MudSelectItem Value="@("Tháng")">
+                    Tháng
+                </MudSelectItem>
+
+                <MudSelectItem Value="@("Tuần")">
+                    Tuần
+                </MudSelectItem>
+
+                <MudSelectItem Value="@("Quý")">
+                    Quý
+                </MudSelectItem>
+
+                <MudSelectItem Value="@("Năm")">
+                    Năm
+                </MudSelectItem>
+
+            </MudSelect>
+
+
+            <MudSelect T="string" @bind-Value="_branch" Variant="Variant.Outlined" Margin="Margin.Dense"
+                       Style="width: 160px;">
+
+                <MudSelectItem Value="@("Tất cả chi nhánh")">
+                    Tất cả chi nhánh
+                </MudSelectItem>
+
+                <MudSelectItem Value="@("Chi nhánh Quận 1")">
+                    Chi nhánh Quận 1
+                </MudSelectItem>
+
+                <MudSelectItem Value="@("Chi nhánh Quận 7")">
+                    Chi nhánh Quận 7
+                </MudSelectItem>
+
+            </MudSelect>
+
+        </MudStack>
+
+    </MudStack>
+
+
+    <!-- ==================== MÔ TẢ ==================== -->
+    <MudText Typo="Typo.body2" Color="Color.Secondary" Style="opacity:0.6">
+
+        Doanh thu / Lượt khám / Cảnh báo tồn kho
+
+    </MudText>
+
+
+    <!-- ==================== THỐNG KÊ ==================== -->
+    <MudGrid Spacing="3">
+
+        <MudItem xs="12" md="4">
+
+            <MudPaper Elevation="1" Style="padding: 20px;">
+
+                <MudText Typo="Typo.body2" Color="Color.Secondary">
+
+                    Doanh thu tháng 10/2020
+
+                </MudText>
+
+                <MudText Typo="Typo.h5" Style="font-weight: 600;">
+
+                    235.854.000 đ
+
+                </MudText>
+
+            </MudPaper>
+
+        </MudItem>
+
+
+        <MudItem xs="12" md="4">
+
+            <MudPaper Elevation="1" Style="padding: 20px;">
+
+                <MudText Typo="Typo.body2" Color="Color.Secondary">
+
+                    Lượt khám
+
+                </MudText>
+
+                <MudText Typo="Typo.h5" Style="font-weight: 600;">
+
+                    688
+
+                </MudText>
+
+            </MudPaper>
+
+        </MudItem>
+
+
+        <MudItem xs="12" md="4">
+
+            <MudPaper Elevation="1" Style="padding: 20px;">
+
+                <MudText Typo="Typo.body2" Color="Color.Secondary">
+
+                    Bệnh nhân mới
+
+                </MudText>
+
+                <MudText Typo="Typo.h5" Style="font-weight: 600;">
+
+                    92
+
+                </MudText>
+
+            </MudPaper>
+
+        </MudItem>
+
+    </MudGrid>
+
+
+    <!-- ==================== BIỂU ĐỒ ==================== -->
+    <MudGrid Spacing="3">
+
+        <!-- Doanh thu -->
+        <MudItem xs="12" lg="6">
+
+            <MudPaper Elevation="1" Style="height: 100%;">
+
+                <MudStack Style="padding: 16px;">
+
+                    <MudText Typo="Typo.subtitle1" Style="font-weight: 600;">
+
+                        Doanh thu theo tháng
+
+                    </MudText>
+
+                </MudStack>
+
+                <MudDivider />
+
+                <MudStack Row="true" AlignItems="AlignItems.End" Justify="Justify.SpaceAround"
+                          Style="height: 280px; padding: 30px 20px 20px;">
+
+                    <div class="report-bar" style="height: 45%;">
+                        <span>T7</span>
+                    </div>
+
+                    <div class="report-bar" style="height: 62%;">
+                        <span>T8</span>
+                    </div>
+
+                    <div class="report-bar" style="height: 55%;">
+                        <span>T9</span>
+                    </div>
+
+                    <div class="report-bar" style="height: 80%;">
+                        <span>T10</span>
+                    </div>
+
+                    <div class="report-bar" style="height: 70%;">
+                        <span>T11</span>
+                    </div>
+
+                    <div class="report-bar" style="height: 90%;">
+                        <span>T12</span>
+                    </div>
+
+                </MudStack>
+
+            </MudPaper>
+
+        </MudItem>
+
+
+        <!-- Lượt khám -->
+        <MudItem xs="12" lg="6">
+
+            <MudPaper Elevation="1" Style="height: 100%;">
+
+                <MudStack Style="padding: 16px;">
+
+                    <MudText Typo="Typo.subtitle1" Style="font-weight: 600;">
+
+                        Lượt khám theo tháng
+
+                    </MudText>
+
+                </MudStack>
+
+                <MudDivider />
+
+                <MudStack Row="true" AlignItems="AlignItems.End" Justify="Justify.SpaceAround"
+                          Style="height: 280px; padding: 30px 20px 20px;">
+
+                    <div class="report-bar" style="height: 48%;">
+                        <span>T7</span>
+                    </div>
+
+                    <div class="report-bar" style="height: 60%;">
+                        <span>T8</span>
+                    </div>
+
+                    <div class="report-bar" style="height: 72%;">
+                        <span>T9</span>
+                    </div>
+
+                    <div class="report-bar" style="height: 40%;">
+                        <span>T10</span>
+                    </div>
+
+                    <div class="report-bar" style="height: 48%;">
+                        <span>T11</span>
+                    </div>
+
+                    <div class="report-bar" style="height: 80%;">
+                        <span>T12</span>
+                    </div>
+
+                </MudStack>
+
+            </MudPaper>
+
+        </MudItem>
+
+    </MudGrid>
+
+
+    <!-- ==================== CẢNH BÁO TỒN KHO ==================== -->
+    <MudAlert Severity="Severity.Warning" Variant="Variant.Outlined" Class="mt-1">
+
+        <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center" Spacing="2">
+
+            <MudText Typo="Typo.body2">
+
+                <strong>Cảnh báo tồn kho:</strong>
+                3 loại thuốc sắp hết -
+                Paracetamol 500mg (12 viên) /
+                Amoxicillin 500mg (10 viên) /
+                Vitamin C 1000mg (10 viên).
+
+            </MudText>
+
+            <MudButton Variant="Variant.Outlined" Color="Color.Success" Size="Size.Small"><a href="/admin/catalog"> Xem danh mục thuốc</a>
+
+            </MudButton>
+
+        </MudStack>
+
+    </MudAlert>
+
+
+    <!-- ==================== XUẤT FILE ==================== -->
+    <MudStack Row="true" Justify="Justify.FlexEnd">
+
+        <MudButton Variant="Variant.Outlined" Color="Color.Dark" StartIcon="@Icons.Material.Filled.FileDownload">
+
+            Xuất PDF/Excel
+
+        </MudButton>
+
+    </MudStack>
+
+</MudStack>
+
+
+<style>
+    .report-bar {
+        width: 40px;
+        min-height: 30px;
+        background-color: var(--mud-palette-info);
+        border-radius: 4px 4px 0 0;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        opacity: 0.7;
+    }
+
+    .report-bar span {
+        position: absolute;
+        bottom: -25px;
+        font-size: 13px;
+    }
+</style>
+
+
+@code {
+
+    private string _period = "Tháng";
+
+    private string _branch = "Tất cả chi nhánh";
+
+}
+
+
+
+
+
+
+
+@* @page "/admin/reports"
+
 
 <PageTitle>Báo cáo & thống kê - QLPK</PageTitle>
 
@@ -107,4 +432,4 @@
 
 <div class="text-end">
     <button type="button" class="btn btn-outline-dark">Xuất PDF/Excel</button>
-</div>
+</div> *@

@@ -12,16 +12,17 @@
     <nav class="nav flex-column">
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span>🏠Trang chủ
+                🏠Trang chủ
             </NavLink>
         </div>
 
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="/appointments">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span>📅 Lịch hẹn
+                📅 Lịch hẹn
             </NavLink>
         </div>
 
+                        @*----- ADMIN -----*@
         <div class="nav-group-title px-3">Admin - Quản trị</div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="admin/users">Người dùng &amp; phân quyền</NavLink>
@@ -36,9 +37,35 @@
             <NavLink class="nav-link" href="admin/reports">Báo cáo &amp; thống kê</NavLink>
         </div>
 
-
+                        @* ----- DOCTOR ----- *@
+        <div class="nav-group-title px-3">Doctor - Bác sĩ</div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="doctor/schedule">Quản lý lịch hẹn</NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="doctor/examination">Khám &amp; bệnh án</NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="doctor/prescription">Kê đơn thuốc</NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="doctor/orders">Chỉ định &amp; kết quả</NavLink>
+        </div>
         
-        
+                        @* ----- PATIENT ----- *@
+        <div class="nav-group-title px-3">Patient - Bệnh nhân</div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="patient/account">Tài khoản &amp; hồ sơ</NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="patient/booking">Đặt lịch &amp; theo dõi lịch</NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="patient/health-records">Tra cứu y tế</NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="patient/payments">Thanh toán</NavLink>
+        </div>
         
     </nav>
 </div>

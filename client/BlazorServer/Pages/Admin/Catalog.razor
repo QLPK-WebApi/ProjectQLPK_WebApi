@@ -1,5 +1,310 @@
 @page "/admin/catalog"
 
+<PageTitle>Quản lý danh mục - QLPK</PageTitle>
+
+<MudStack Spacing="2">
+
+    <!-- ==================== TIÊU ĐỀ ==================== -->
+    <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+
+        <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+
+            <MudChip T="string" Color="Color.Primary" Size="Size.Medium">
+                2
+            </MudChip>
+
+            <MudText Typo="Typo.h4" Style="font-weight: 700;">
+                Quản lý danh mục
+            </MudText>
+
+        </MudStack>
+
+    </MudStack>
+
+
+    <!-- ==================== MÔ TẢ ==================== -->
+    <MudText Typo="Typo.body2" Color="Color.Secondary" Style="opacity: 0.5">
+        Chuyên khoa / Bác sĩ & chuyên khoa / Dịch vụ / Thuốc & tồn kho
+    </MudText>
+
+
+    <!-- ==================== TAB + BUTTON ==================== -->
+    <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+
+        <MudTabs Rounded="true" Elevation="0" Color="Color.Info">
+
+            <MudTabPanel Text="Chuyên khoa">
+            </MudTabPanel>
+
+            <MudTabPanel Text="Bác sĩ">
+            </MudTabPanel>
+
+            <MudTabPanel Text="Dịch vụ">
+            </MudTabPanel>
+
+            <MudTabPanel Text="Thuốc">
+            </MudTabPanel>
+
+        </MudTabs>
+
+
+        <MudButton Variant="Variant.Filled" Color="Color.Warning" Style="opacity:0.8" StartIcon="@Icons.Material.Filled.Add">
+
+            Thêm mới
+
+        </MudButton>
+
+    </MudStack>
+
+
+    <!-- ==================== NỘI DUNG ==================== -->
+    <MudGrid Spacing="3">
+
+
+        <!-- ==================== DANH SÁCH ==================== -->
+        <MudItem xs="12" lg="7">
+
+            <MudPaper Elevation="1" Style="height: 100%;">
+
+                <!-- Header -->
+                <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Style="padding: 16px;">
+
+                    <MudText Typo="Typo.subtitle1" Style="font-weight: 600;">
+
+                        Danh sách chuyên khoa
+
+                    </MudText>
+
+                </MudStack>
+
+                <MudDivider />
+
+
+                <!-- Table -->
+                <MudTable T="SpecialtyModel" Items="_specialties" Hover="true" Striped="true" Dense="true">
+
+                    <HeaderContent>
+
+                        <MudTh>Mã</MudTh>
+
+                        <MudTh>Tên chuyên khoa</MudTh>
+
+                        <MudTh>Mô tả</MudTh>
+
+                        <MudTh Style="text-align: right;">
+                            Thao tác
+                        </MudTh>
+
+                    </HeaderContent>
+
+
+                    <RowTemplate Context="specialty">
+
+                        <MudTd DataLabel="Mã">
+                            @specialty.Code
+                        </MudTd>
+
+                        <MudTd DataLabel="Tên chuyên khoa">
+                            @specialty.Name
+                        </MudTd>
+
+                        <MudTd DataLabel="Mô tả">
+                            @specialty.Description
+                        </MudTd>
+
+                        <MudTd DataLabel="Thao tác">
+
+                            <MudStack Row="true" Justify="Justify.FlexEnd" Spacing="1">
+
+                                <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary"
+                                               Size="Size.Small" Title="Sửa" />
+
+                                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error"
+                                               Size="Size.Small" Title="Xóa" />
+
+                            </MudStack>
+
+                        </MudTd>
+
+                    </RowTemplate>
+
+                </MudTable>
+
+            </MudPaper>
+
+        </MudItem>
+
+
+        <!-- ==================== FORM ==================== -->
+        <MudItem xs="12" lg="5">
+
+            <MudPaper Elevation="1" Style="height: 100%;">
+
+                <!-- Header -->
+                <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Style="padding: 16px;">
+
+                    <MudText Typo="Typo.subtitle1" Style="font-weight: 600;">
+
+                        Thông tin danh mục
+
+                    </MudText>
+
+                </MudStack>
+
+                <MudDivider />
+
+
+                <!-- Form -->
+                <MudStack Spacing="2" Style="padding: 20px;">
+
+                    <!-- Mã -->
+                    <MudTextField T="string" Label="Mã" Placeholder="VD: Khoa Nội" Variant="Variant.Outlined" Margin="Margin.Dense" />
+
+
+                    <!-- Tên -->
+                    <MudTextField T="string" Label="Tên" Placeholder="VD: Nội tổng quát" Variant="Variant.Outlined" Margin="Margin.Dense" />
+
+
+                    <!-- Giá -->
+                    <MudNumericField T="decimal" Label="Giá dịch vụ (VNĐ)" Placeholder="0" Variant="Variant.Outlined" Margin="Margin.Dense" />
+
+
+                    <!-- Chuyên khoa -->
+                    <MudSelect T="string" Label="Chuyên khoa liên quan" Variant="Variant.Outlined" Margin="Margin.Dense">
+
+                        <MudSelectItem Value="@("")">
+                            -- Chọn chuyên khoa --
+                        </MudSelectItem>
+
+                        <MudSelectItem Value="@("Nội tổng quát")">
+                            Nội tổng quát
+                        </MudSelectItem>
+
+                        <MudSelectItem Value="@("Nhi khoa")">
+                            Nhi khoa
+                        </MudSelectItem>
+
+                        <MudSelectItem Value="@("Răng hàm mặt")">
+                            Răng hàm mặt
+                        </MudSelectItem>
+
+                        <MudSelectItem Value="@("Tai mũi họng")">
+                            Tai mũi họng
+                        </MudSelectItem>
+
+                    </MudSelect>
+
+
+                    <!-- Tồn kho -->
+                    <MudPaper Outlined="true" Style="padding: 16px;">
+
+                        <MudText Typo="Typo.body2" Style="font-weight: 600;" Color="Color.Error">
+
+                            Số lượng tồn kho
+
+                        </MudText>
+
+                        <MudText Typo="Typo.caption" Color="Color.Error">
+
+                            Chỉ áp dụng tab thuốc
+
+                        </MudText>
+
+                        <MudNumericField T="int" Placeholder="0" Min="0" Variant="Variant.Outlined"
+                                         Margin="Margin.Dense" Class="mt-2" />
+
+                    </MudPaper>
+
+
+                    <!-- Mô tả -->
+                    <MudTextField T="string" Label="Mô tả" Variant="Variant.Outlined" Lines="3" TextArea="true" />
+
+
+                </MudStack>
+
+
+                <MudDivider />
+
+
+                <!-- Footer -->
+                <MudStack Row="true" Justify="Justify.FlexEnd" Spacing="1" Style="padding: 16px;">
+
+                    <MudButton Variant="Variant.Outlined" Color="Color.Default">
+
+                        Hủy
+
+                    </MudButton>
+
+                    <MudButton Variant="Variant.Filled" Color="Color.Dark" StartIcon="@Icons.Material.Filled.Save">
+
+                        Lưu
+
+                    </MudButton>
+
+                </MudStack>
+
+            </MudPaper>
+
+        </MudItem>
+
+    </MudGrid>
+
+</MudStack>
+
+
+@code {
+
+    private List<SpecialtyModel> _specialties = new()
+    {
+        new()
+        {
+            Code = "Khoa Nội",
+            Name = "Nội tổng quát",
+            Description = "Khám và điều trị nội khoa"
+        },
+
+        new()
+        {
+            Code = "Khoa Nhi",
+            Name = "Nhi khoa",
+            Description = "Khám cho trẻ em dưới 15 tuổi"
+        },
+
+        new()
+        {
+            Code = "Khoa RHM",
+            Name = "Răng hàm mặt",
+            Description = "Nha khoa tổng quát"
+        },
+
+        new()
+        {
+            Code = "Khoa TMH",
+            Name = "Tai mũi họng",
+            Description = "Khám và điều trị Tai mũi họng"
+        }
+    };
+
+
+    public class SpecialtyModel
+    {
+        public string Code { get; set; } = string.Empty;
+
+        public string Name { get; set; } = string.Empty;
+
+        public string Description { get; set; } = string.Empty;
+    }
+
+}
+
+
+
+
+
+
+
+@* @page "/admin/catalog"
+
 
 <PageTitle>Quản lý danh mục - QLPK</PageTitle>
 
@@ -31,8 +336,8 @@
                             <th class="text-end">Thao tác</th>
                         </tr>
                     </thead>
-                        
-                    <tbody>
+
+<tbody>
                         <tr>
                             <td>Khoa Nội</td>
                             <td>Nội tổng quát</td>
@@ -106,7 +411,8 @@
                 </div>
 
                 <div class="mb-3 p-3 border border-danger-subtle rounded bg-danger-subtle">
-                    <label class="form-label" for="cat-stock">Số lượng tồn kho<span class="text-danger">(chỉ áp dụng tab thuốc)</span></label>
+                    <label class="form-label" for="cat-stock">Số lượng tồn kho<span class="text-danger">(chỉ áp dụng tab
+thuốc)</span></label>
                     <input type="text" class="form-control" id="cat-stock" placeholder="0" />
                 </div>
 
@@ -122,4 +428,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> *@

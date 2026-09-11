@@ -1,0 +1,246 @@
+@page "/doctor/prescription"
+@implements IDisposable
+
+<PageTitle>Kê đơn thuốc - QLPK</PageTitle>
+
+<!-- Tiêu đề -->
+<MudStack Row="true" AlignItems="AlignItems.Center">
+
+    <MudChip T="string" Color="Color.Tertiary" Size="Size.Medium">
+        3
+    </MudChip>
+
+    <MudText Typo="Typo.h4" Style="font-weight: 700;">
+        Kê đơn thuốc
+    </MudText>
+    
+</MudStack>
+<MudText Typo="Typo.body2" Color="Color.Secondary" >
+    Kê đơn thuốc · Liều dùng &amp; hướng dẫn
+</MudText>
+
+<!-- Thông tin bệnh nhân -->
+<MudPaper Elevation="1" Class="pa-3 mb-4">
+    <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+        <MudChip T="string" Color="Color.Primary" Variant="Variant.Outlined">
+            BN: Nguyễn Thị Lan · BN-00124 · Nữ · 34 tuổi
+        </MudChip>
+    </MudStack>
+</MudPaper>
+
+<!-- Tìm thuốc -->
+<MudPaper Elevation="1" Class="pa-3 mb-4">
+    <MudStack Row="true" Spacing="2">
+        <MudTextField T="string" @bind-Value="SearchMedicine" Placeholder="Tìm & chọn thuốc trong danh mục..."
+                      Variant="Variant.Outlined" Margin="Margin.Dense" Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search" FullWidth="true" />
+
+        <MudButton Variant="Variant.Outlined" Color="Color.Primary" OnClick="AddMedicine" Style="white-space: nowrap;">
+            Thêm vào đơn
+        </MudButton>
+    </MudStack>
+</MudPaper>
+
+<!-- Danh sách thuốc -->
+<MudPaper Elevation="1" Class="mb-4">
+
+    <MudTable Items="@Medicines" Hover="true" Dense="true" Striped="true">
+
+        <HeaderContent>
+            <MudTh>Tên thuốc</MudTh>
+            <MudTh Style="width: 180px;">Liều dùng</MudTh>
+            <MudTh Style="width: 120px;">Số lượng</MudTh>
+            <MudTh>Hướng dẫn sử dụng</MudTh>
+            <MudTh Style="width: 80px; text-align: right;">
+                Xóa
+            </MudTh>
+        </HeaderContent>
+
+        <RowTemplate>
+            <MudTd DataLabel="Tên thuốc">
+                <MudText Typo="Typo.body2" Style="font-weight: 600;">
+                    @context.Name
+                </MudText>
+            </MudTd>
+
+            <MudTd DataLabel="Liều dùng">
+                <MudTextField T="string" @bind-Value="context.Dosage" Variant="Variant.Outlined" Margin="Margin.Dense"
+                              FullWidth="true" />
+            </MudTd>
+
+            <MudTd DataLabel="Số lượng">
+                <MudNumericField T="int" @bind-Value="context.Quantity" Variant="Variant.Outlined" Margin="Margin.Dense"
+                                 Min="1" FullWidth="true" />
+            </MudTd>
+
+            <MudTd DataLabel="Hướng dẫn sử dụng">
+                <MudTextField T="string" @bind-Value="context.Instruction" Variant="Variant.Outlined"
+                              Margin="Margin.Dense" FullWidth="true" />
+            </MudTd>
+
+            <MudTd DataLabel="Xóa">
+                <MudStack Row="true" Justify="Justify.FlexEnd">
+                    <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error" Size="Size.Small"
+                                   OnClick="@(() => RemoveMedicine(context))" />
+                </MudStack>
+            </MudTd>
+
+        </RowTemplate>
+
+        <NoRecordsContent>
+            <MudText Class="pa-4" Color="Color.Secondary">
+                Chưa có thuốc trong đơn.
+            </MudText>
+        </NoRecordsContent>
+
+    </MudTable>
+
+</MudPaper>
+
+<!-- Cảnh báo -->
+<MudAlert Severity="Severity.Error" Variant="Variant.Outlined" Class="mb-4">
+
+    <strong>Cảnh báo:</strong>
+    Bệnh nhân dị ứng Penicillin · Paracetamol 500mg chỉ còn 12 viên trong kho.
+
+</MudAlert>
+
+<!-- Lời dặn bác sĩ -->
+<MudPaper Elevation="1" Class="pa-4 mb-4">
+
+    <MudText Typo="Typo.subtitle1" Style="font-weight: 600;" Class="mb-2">
+        Lời dặn của bác sĩ
+    </MudText>
+
+    <MudTextField T="string" @bind-Value="DoctorNote" Placeholder="Tái khám sau 7 ngày, hạn chế thức khuya..."
+                  Variant="Variant.Outlined" Lines="3" FullWidth="true" />
+
+</MudPaper>
+
+<!-- Nút thao tác -->
+<MudStack Row="true" Justify="Justify.FlexEnd" Spacing="2">
+
+    <MudButton Variant="Variant.Outlined" Color="Color.Default" OnClick="SaveDraft">
+        Lưu nháp
+    </MudButton>
+
+    <MudButton Variant="Variant.Filled" Color="Color.Dark" StartIcon="@Icons.Material.Filled.Print"
+               OnClick="SaveAndPrint">
+        Lưu & In đơn
+    </MudButton>
+
+</MudStack>
+
+@code {
+
+    private string SearchMedicine = string.Empty;
+
+    private string DoctorNote = string.Empty;
+
+    private List<MedicineItem> Medicines = new()
+    {
+        new MedicineItem
+        {
+            Name = "Paracetamol 500mg",
+            Dosage = "1 viên x 3 lần/ngày",
+            Quantity = 15,
+            Instruction = "Uống sau ăn"
+        },
+        new MedicineItem
+        {
+            Name = "Betaserc 16mg",
+            Dosage = "1 viên x 2 lần/ngày",
+            Quantity = 10,
+            Instruction = "Uống sáng - chiều"
+        },
+        new MedicineItem
+        {
+            Name = "Vitamin B1-B6-B12",
+            Dosage = "1 viên/ngày",
+            Quantity = 7,
+            Instruction = "Uống buổi sáng"
+        }
+    };
+
+    protected override void OnInitialized()
+    {
+        // Khởi tạo dữ liệu màn hình
+    }
+
+    private void AddMedicine()
+    {
+        if (string.IsNullOrWhiteSpace(SearchMedicine))
+            return;
+
+        Medicines.Add(new MedicineItem
+        {
+            Name = SearchMedicine,
+            Dosage = "",
+            Quantity = 1,
+            Instruction = ""
+        });
+
+        SearchMedicine = string.Empty;
+    }
+
+    private void RemoveMedicine(MedicineItem medicine)
+    {
+        Medicines.Remove(medicine);
+    }
+
+    private void SaveDraft()
+    {
+        // Lưu nháp
+    }
+
+    private void SaveAndPrint()
+    {
+        // Lưu đơn và in đơn
+    }
+
+    public void Dispose()
+    {
+        // Giải phóng tài nguyên nếu có
+    }
+
+    public class MedicineItem
+    {
+        public string Name { get; set; } = string.Empty;
+
+        public string Dosage { get; set; } = string.Empty;
+
+        public int Quantity { get; set; }
+
+        public string Instruction { get; set; } = string.Empty;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

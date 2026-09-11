@@ -4,7 +4,320 @@
 
 <PageTitle>Người dùng & phân quyền - QLPK</PageTitle>
 
-<div class="d-flex justify-content-between align-items-center mb-1">
+<MudStack Spacing="1">
+
+    <!-- Tiêu đề -->
+    <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+
+        <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+
+            <MudChip T="string" Color="Color.Primary" Size="Size.Medium">
+                1
+            </MudChip>
+
+            <MudText Typo="Typo.h4" Style="font-weight: 700;">
+                Tài khoản & phân quyền
+            </MudText>
+
+        </MudStack>
+
+        <MudButton Variant="Variant.Filled" Color="Color.Dark" StartIcon="@Icons.Material.Filled.Add">
+            Thêm
+        </MudButton>
+
+    </MudStack>
+
+
+    <!-- Breadcrumb / mô tả -->
+    <MudText Typo="Typo.body2" Color="Color.Secondary" Style="opacity: 0.5" >
+        Đăng nhập / Quản lý người dùng / Quản lý vai trò / Phân quyền truy cập
+    </MudText>
+
+
+    <!-- Tìm kiếm -->
+    <MudStack Row="true" Spacing="1" Style="max-width: 400px;">
+
+        <MudTextField @bind-Value="_searchKeyword" Placeholder="Tìm theo tên đăng nhập / họ tên..."
+                    Variant="Variant.Outlined" Margin="Margin.Dense" Adornment="Adornment.Start"
+                    AdornmentIcon="@Icons.Material.Filled.Search" />
+
+        <MudButton Variant="Variant.Outlined" Color="Color.Default" OnClick="Search">
+            Tìm
+        </MudButton>
+
+    </MudStack>
+
+
+    <!-- Bảng người dùng -->
+    <MudPaper Elevation="1">
+
+        <MudTable T="UserModel" Items="_users" Hover="true" Striped="false" Dense="true" Bordered="false">
+
+            <HeaderContent>
+
+                <MudTd>STT</MudTd>
+                <MudTd>Tên đăng nhập</MudTd>
+                <MudTd>Họ tên</MudTd>
+                <MudTd>Số điện thoại</MudTd>
+                <MudTd>Vai trò</MudTd>
+                <MudTd>Trạng thái</MudTd>
+                <MudTd Style="text-align:right;">Thao tác</MudTd>
+                </HeaderContent>
+
+
+                <RowTemplate>
+
+                    <MudTd DataLabel="STT">
+                        @context.Id
+                    </MudTd>
+
+                    <MudTd DataLabel="Tên đăng nhập">
+                        @context.Username
+                    </MudTd>
+
+                    <MudTd DataLabel="Họ tên">
+                        @context.FullName
+                    </MudTd>
+
+                    <MudTd DataLabel="Số điện thoại">
+                        @context.Phone
+                    </MudTd>
+
+                    <MudTd DataLabel="Vai trò">
+
+                        <MudSelect T="string" @bind-Value="context.Role" Variant="Variant.Outlined"
+                                Margin="Margin.Dense">
+
+                            <MudSelectItem Value="@("Admin")">
+                                Admin
+                            </MudSelectItem>
+
+                            <MudSelectItem Value="@("Bác sĩ")">
+                                Bác sĩ
+                            </MudSelectItem>
+
+                            <MudSelectItem Value="@("Lễ tân")">
+                                Lễ tân
+                            </MudSelectItem>
+
+                        </MudSelect>
+
+                    </MudTd>
+
+                    <MudTd DataLabel="Trạng thái">
+
+                        @if (context.IsActive)
+                        {
+                            <MudChip T="string" Color="Color.Success" Size="Size.Small">
+                                Đang hoạt động
+                            </MudChip>
+                        }
+                        else
+                        {
+                            <MudChip T="string" Color="Color.Default" Size="Size.Small">
+                                Tạm khóa
+                            </MudChip>
+                        }
+
+                    </MudTd>
+
+                    <MudTd DataLabel="Thao tác">
+
+                        <MudStack Row="true" Justify="Justify.FlexEnd">
+
+                            <MudButton Size="Size.Small" Variant="Variant.Outlined" Color="Color.Primary"
+                                    OnClick="@(() => EditUser(context))">
+                                Sửa
+                            </MudButton>
+
+                        </MudStack>
+
+                    </MudTd>
+                
+                </RowTemplate>
+
+            </MudTable>
+
+        </MudPaper>
+
+
+        <!-- Phân quyền -->
+        @if (_selectedUser is not null)
+        {
+            <MudPaper Elevation="1">
+
+                <MudText Typo="Typo.subtitle1" Style="font-weight: 600; padding: 16px;">
+                    Phân quyền truy cập - @_selectedUser.FullName
+                </MudText>
+
+                <MudDivider />
+
+                <MudGrid Spacing="3" Style="padding: 16px;">
+
+                    <MudItem xs="12" md="4">
+
+                        <MudCheckBox @bind-Value="_permissions.Appointments" Label="Quản lý lịch hẹn" Color="Color.Primary" />
+
+                    </MudItem>
+
+                    <MudItem xs="12" md="4">
+
+                        <MudCheckBox @bind-Value="_permissions.Records" Label="Khám & bệnh án" Color="Color.Primary" />
+
+                    </MudItem>
+
+                    <MudItem xs="12" md="4">
+
+                        <MudCheckBox @bind-Value="_permissions.Prescriptions" Label="Kê đơn thuốc" Color="Color.Primary" />
+
+                    </MudItem>
+
+                    <MudItem xs="12" md="4">
+
+                        <MudCheckBox @bind-Value="_permissions.Orders" Label="Chỉ định & kết quả" Color="Color.Primary" />
+
+                    </MudItem>
+
+                    <MudItem xs="12" md="4">
+
+                        <MudCheckBox @bind-Value="_permissions.Catalog" Label="Quản lý danh mục" Color="Color.Primary" />
+
+                    </MudItem>
+
+                    <MudItem xs="12" md="4">
+
+                        <MudCheckBox @bind-Value="_permissions.Invoices" Label="Hóa đơn & thanh toán" Color="Color.Primary" />
+
+                    </MudItem>
+
+                    <MudItem xs="12" md="4">
+
+                        <MudCheckBox @bind-Value="_permissions.Reports" Label="Báo cáo & thống kê" Color="Color.Primary" />
+
+                    </MudItem>
+
+                </MudGrid>
+
+                <MudDivider />
+
+                <MudStack Row="true" Justify="Justify.FlexEnd" Style="padding: 16px;">
+
+                    <MudButton Variant="Variant.Filled" Color="Color.Dark" OnClick="SavePermissions">
+                        Lưu
+                    </MudButton>
+
+                </MudStack>
+
+            </MudPaper>
+        }
+
+    </MudStack>
+
+
+@code {
+
+    private string _searchKeyword = string.Empty;
+
+    private UserModel? _selectedUser;
+
+    private PermissionModel _permissions = new();
+
+
+    private List<UserModel> _users = new()
+    {
+        new()
+        {
+            Id = 1,
+            Username = "admin",
+            FullName = "Quản trị viên",
+            Phone = "0909 855 368",
+            Role = "Admin",
+            IsActive = true
+        },
+
+        new()
+        {
+            Id = 2,
+            Username = "bs.Hoàng",
+            FullName = "Nguyễn Văn Hoàng",
+            Phone = "0992 755 488",
+            Role = "Bác sĩ",
+            IsActive = true
+        },
+
+        new()
+        {
+            Id = 3,
+            Username = "letan01",
+            FullName = "Trần Thị Tuyết Minh",
+            Phone = "0978 477 855",
+            Role = "Lễ tân",
+            IsActive = false
+        }
+    };
+
+
+    private void Search()
+    {
+        // Sau này gọi API tìm kiếm ở đây
+    }
+
+
+    private void EditUser(UserModel user)
+    {
+        _selectedUser = user;
+
+        // Sau này lấy quyền của user từ API
+    }
+
+
+    private void SavePermissions()
+    {
+        // Sau này gọi API lưu quyền
+    }
+
+
+    public void Dispose()
+    {
+    }
+
+
+    public class UserModel
+    {
+        public int Id { get; set; }
+
+        public string Username { get; set; } = string.Empty;
+
+        public string FullName { get; set; } = string.Empty;
+
+        public string Phone { get; set; } = string.Empty;
+
+        public string Role { get; set; } = string.Empty;
+
+        public bool IsActive { get; set; }
+    }
+
+
+    public class PermissionModel
+    {
+        public bool Appointments { get; set; } = true;
+
+        public bool Records { get; set; } = true;
+
+        public bool Prescriptions { get; set; } = true;
+
+        public bool Orders { get; set; }
+
+        public bool Catalog { get; set; }
+
+        public bool Invoices { get; set; }
+
+        public bool Reports { get; set; }
+    }
+}
+
+
+@* <div class="d-flex justify-content-between align-items-center mb-1">
     <h1 class="h3 mb-0 fw-bold"><span class="badge bg-primary me-2">1</span>Tài khoản &amp; phân quyền</h1>
     <button type="button" class="btn btn-dark">+ Thêm</button>
 </div>
@@ -148,18 +461,18 @@
     <div class="card-footer bg-white text-end">
         <button type="button" class="btn btn-dark">Lưu</button>
     </div>
-    
-</div>
 
-@code{
+</div> *@
+
+@* @code {
     protected override void OnInitialized()
     {
-        
+
     }
 
     public void Dispose()
     {
 
     }
-}
+} *@
 

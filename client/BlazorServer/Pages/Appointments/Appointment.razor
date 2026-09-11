@@ -1,44 +1,41 @@
-@using BlazorServer.Models
-@using BlazorServer.Services
-
 @page "/appointments"
-
 @attribute [Authorize]
 
 
 <PageTitle>Lịch hẹn - QLPK</PageTitle>
 
-<MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center" Class="mb-2">
-    <MudText Typo="Typo.h3">Quản lý lịch hẹn</MudText>
-    <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" OnClick="OpenCreate">
-        Tạo lịch hẹn
-    </MudButton>
+<MudStack Row="true" Justify="Justify.SpaceBetween" Class="mb-2">
+    <MudText Typo="Typo.h4">Quản lý lịch hẹn</MudText>
+    <MudButton Variant="Variant.Filled" Color="Color.Info" StartIcon="@Icons.Material.Filled.Add" OnClick="OpenCreate">Tạo lịch hẹn</MudButton>
 </MudStack>
 
+@if (_showCreate)
+{
+    <AppointmentCreateDialog OnSaved="OnCreated" OnCancel="() => _showCreate = false" />
+}
 
-<MudStack Row="true" Spacing="2" Class="mb-3" Style="max-width:400px;">
-    <MudTextField @bind-Value="_keyword" Immediate="true" OnKeyUp="OnSearchKey"
-                  Placeholder="Tìm theo bệnh nhân / bác sĩ / lý do..." Variant="Variant.Outlined" />
 
-    <MudButton Variant="Variant.Outlined" Color="Color.Secondary" OnClick="() => LoadAsync(1)">Tìm</MudButton>
+
+<MudStack Row="true" Spacing="1" Class="mb-3" Style="max-width: 400px;">
+    <MudTextField @bind-Value="_keyword" Immediate="true"
+    OnKeyUp="@OnSearchKey" Placeholder="Tìm theo bệnh nhân / bác sĩ / lý do..." Variant="Variant.Outlined" />
+    
+    <MudButton Variant="Variant.Outlined" Color="Color.Dark" OnClick="() => LoadAsync(1)" >Tìm</MudButton>
 </MudStack>
-
 
 @if (!string.IsNullOrEmpty(_error))
 {
-    <MudAlert Severity="Severity.Error" Class="mb-3">@_error</MudAlert>
+    <MudAlert Severity="Severity.Error">@_error</MudAlert>
 }
 
 @if (_loading)
 {
     <MudText>Đang tải...</MudText>
 }
-
 else if (_result is null || _result.Items.Count == 0)
 {
-    <MudAlert Severity="Severity.Info">Không có lịch hẹn nào</MudAlert>
+    <MudAlert Severity="Severity.Warning">Không có lịch hẹn nào</MudAlert>
 }
-
 else
 {
     <MudTable Items="_result.Items" Hover="true" Striped="true">
@@ -49,7 +46,7 @@ else
             <MudTh>Bác sĩ</MudTh>
             <MudTh>Lý do</MudTh>
             <MudTh>Trạng thái</MudTh>
-            <MudTh></MudTh>
+            <MudTh Class="text-end">Thao tác</MudTh>
         </HeaderContent>
 
         <RowTemplate>
@@ -59,30 +56,38 @@ else
             <MudTd DataLabel="Bác sĩ">@context.DoctorName</MudTd>
             <MudTd DataLabel="Lý do">@context.Reason</MudTd>
             <MudTd DataLabel="Trạng thái">
-                <MudChip T="string" Color="@StatusColor(context.Status)" Size="Size.Small">@StatusText(context.Status)</MudChip>
+                <MudChip T="string" Color="@StatusColor(context.Status)" Size="Size.Small">@context.Status
+                </MudChip>
             </MudTd>
+
+
             <MudTd Class="text-end">
                 @if (context.Status == "Scheduled")
                 {
-                    <MudButton Size="Size.Small" Variant="Variant.Outlined" Color="Color.Success" Class="me-1"
-                               OnClick="() => ChangeStatus(context, CheckedIn)">Check-in</MudButton>
+                    <MudButton Size="Size.Small" Variant="Variant.Outlined" Color="Color.Success" Class="me-1" OnClick="() => ChangeStatus(context,CheckedIn)">Check-In</MudButton>
+
+                    <MudButton Size="Size.Small" Variant="Variant.Outlined" Color="Color.Error" Class="me-1" OnClick="() => CancelAsync(context)">
+                        Hủy
+                    </MudButton>
                 }
 
                 @if (context.Status is "Scheduled" or "CheckedIn")
                 {
-                    <MudButton Size="Size.Small" Variant="Variant.Outlined" Color="Color.Primary" Class="me-1"
-                               OnClick="() => ChangeStatus(context, Completed)">Hoàn tất</MudButton>
-
-                    <MudButton Size="Size.Small" Variant="Variant.Outlined" Color="Color.Error"
-                               OnClick="() => CancelAsync(context)">Hủy</MudButton>
+                    <MudButton Size="Size.Small" Variant="Variant.Outlined" Color="Color.Primary" Class="me-1" OnClick="() => ChangeStatus(context,Completed)">
+                        Hoàn tất
+                    </MudButton>
                 }
             </MudTd>
         </RowTemplate>
     </MudTable>
 }
+@* / Hover: hiệu ứng highlight , Striped: màu nền xen kẽ giữa các dòng/ *@
 
 
-@if (_showCreate)
-{
-    <AppointmentCreateDialog OnSaved="OnCreated" OnCancel="() => _showCreate = false" />
-}
+
+
+
+
+
+
+

@@ -2,6 +2,284 @@
 
 <PageTitle>Hóa đơn & thanh toán - QLPK</PageTitle>
 
+<MudStack Spacing="2">
+
+    <!-- ==================== TIÊU ĐỀ ==================== -->
+    <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Center">
+
+        <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="2">
+
+            <MudChip T="string" Color="Color.Primary" Size="Size.Medium" >
+                3
+            </MudChip>
+
+            <MudText Typo="Typo.h4" Style="font-weight: 700;">
+                Hóa đơn & thanh toán
+            </MudText>
+
+        </MudStack>
+
+
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add">
+
+            Lập hóa đơn
+
+        </MudButton>
+
+    </MudStack>
+
+
+    <!-- ==================== MÔ TẢ ==================== -->
+    <MudText Typo="Typo.body2" Color="Color.Secondary" Style="opacity: 0.6">
+
+        Lập hóa đơn / Xác nhận thanh toán
+
+    </MudText>
+
+
+    <!-- ==================== THỐNG KÊ ==================== -->
+    <MudGrid Spacing="3">
+
+        <!-- Doanh thu -->
+        <MudItem xs="12" md="6">
+
+            <MudPaper Elevation="1" Style="padding: 20px; text-align: center;">
+
+                <MudText Typo="Typo.body2" Color="Color.Secondary">
+
+                    Tổng doanh thu hôm nay
+
+                </MudText>
+
+                <MudText Typo="Typo.h5" Style="font-weight: 600;">
+
+                    12.450.000 đ
+
+                </MudText>
+
+            </MudPaper>
+
+        </MudItem>
+
+
+        <!-- Chưa thanh toán -->
+        <MudItem xs="12" md="6">
+
+            <MudPaper Elevation="1" Style="padding: 20px; text-align: center;">
+
+                <MudText Typo="Typo.body2" Color="Color.Secondary">
+
+                    Chưa thanh toán
+
+                </MudText>
+
+                <MudText Typo="Typo.h5" Style="font-weight: 600;">
+
+                    3.200.000 đ
+
+                </MudText>
+
+            </MudPaper>
+
+        </MudItem>
+
+    </MudGrid>
+
+
+    <!-- ==================== DANH SÁCH HÓA ĐƠN ==================== -->
+    <MudPaper Elevation="1">
+
+        <!-- Header -->
+        <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Style="padding: 16px;">
+
+            <MudText Typo="Typo.h6" Style="font-weight: 600;">
+
+                Danh sách hóa đơn
+
+            </MudText>
+
+        </MudStack>
+
+
+        <MudDivider />
+
+
+        <!-- Table -->
+        <MudTable T="InvoiceModel" Items="_invoices" Hover="true" Striped="true" Dense="true">
+
+            <HeaderContent>
+
+                <MudTh>Số HĐ</MudTh>
+
+                <MudTh>Bệnh nhân</MudTh>
+
+                <MudTh>Ngày lập</MudTh>
+
+                <MudTh>Tổng tiền</MudTh>
+
+                <MudTh>Trạng thái</MudTh>
+
+                <MudTh Style="text-align: right;">
+                    Thao tác
+                </MudTh>
+
+            </HeaderContent>
+
+
+            <RowTemplate Context="invoice">
+
+                <!-- Số hóa đơn -->
+                <MudTd DataLabel="Số HĐ">
+                    @invoice.InvoiceNumber
+                </MudTd>
+
+
+                <!-- Bệnh nhân -->
+                <MudTd DataLabel="Bệnh nhân">
+                    @invoice.PatientName
+                </MudTd>
+
+
+                <!-- Ngày lập -->
+                <MudTd DataLabel="Ngày lập">
+                    @invoice.CreatedDate
+                </MudTd>
+
+
+                <!-- Tổng tiền -->
+                <MudTd DataLabel="Tổng tiền">
+                    @invoice.TotalAmount.ToString("N0") đ
+                </MudTd>
+
+
+                <!-- Trạng thái -->
+                <MudTd DataLabel="Trạng thái">
+
+                    @if (invoice.IsPaid)
+                    {
+                        <MudChip T="string" Color="Color.Success" Size="Size.Small">
+
+                            Đã thanh toán
+
+                        </MudChip>
+                    }
+                    else
+                    {
+                        <MudChip T="string" Color="Color.Warning" Size="Size.Small">
+
+                            Chưa thanh toán
+
+                        </MudChip>
+                    }
+
+                </MudTd>
+
+
+                <!-- Thao tác -->
+                <MudTd DataLabel="Thao tác">
+
+                    <MudStack Row="true" Justify="Justify.FlexEnd" Spacing="1">
+
+                        @if (!invoice.IsPaid)
+                        {
+                            <MudButton Size="Size.Small" Variant="Variant.Outlined" Color="Color.Success">
+
+                                Xác nhận
+
+                            </MudButton>
+                        }
+                        else
+                        {
+                            <MudButton Size="Size.Small" Variant="Variant.Outlined" Color="Color.Default">
+
+                                Xem
+
+                            </MudButton>
+                        }
+
+                    </MudStack>
+
+                </MudTd>
+
+            </RowTemplate>
+
+        </MudTable>
+
+
+        <!-- Footer -->
+        <MudDivider />
+
+        <MudStack Row="true" Justify="Justify.FlexEnd" Style="padding: 16px;">
+
+            <MudButton Variant="Variant.Outlined" Color="Color.Dark" StartIcon="@Icons.Material.Filled.Print">
+
+                In / Xuất
+
+            </MudButton>
+
+        </MudStack>
+
+    </MudPaper>
+
+</MudStack>
+
+
+@code {
+
+    private List<InvoiceModel> _invoices = new()
+    {
+        new()
+        {
+            InvoiceNumber = "HD-0015",
+            PatientName = "Nguyễn Tấn Hoàng",
+            CreatedDate = "29/10/2020",
+            TotalAmount = 850000,
+            IsPaid = false
+        },
+
+        new()
+        {
+            InvoiceNumber = "HD-0016",
+            PatientName = "Đặng Minh Tiến",
+            CreatedDate = "01/11/2020",
+            TotalAmount = 1350000,
+            IsPaid = false
+        },
+
+        new()
+        {
+            InvoiceNumber = "HD-0017",
+            PatientName = "Nguyễn Hoàng Sơn",
+            CreatedDate = "02/11/2020",
+            TotalAmount = 550000,
+            IsPaid = true
+        }
+    };
+
+
+    public class InvoiceModel
+    {
+        public string InvoiceNumber { get; set; } = string.Empty;
+
+        public string PatientName { get; set; } = string.Empty;
+
+        public string CreatedDate { get; set; } = string.Empty;
+
+        public decimal TotalAmount { get; set; }
+
+        public bool IsPaid { get; set; }
+    }
+
+}
+
+
+
+
+
+@* @page "/admin/invoices"
+
+<PageTitle>Hóa đơn & thanh toán - QLPK</PageTitle>
+
 <div class="d-flex justify-content-between align-items-center mb-1">
     <h1 class="h3 mb-0 fw-bold"><span class="badge bg-primary me-2">3</span>Hóa đơn &amp; thanh toán</h1>
     <button type="button" class="btn btn-dark">+ Lập hóa đơn</button>
@@ -83,4 +361,4 @@
         <button type="button" class="btn btn-outline-dark">In / Xuất</button>
     </div>
 </div>
-
+ *@
